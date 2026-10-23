@@ -1,0 +1,32 @@
+@startuml
+!include estilo.iuml
+left to right direction
+actor "Visitante" as V
+actor "Aluno" as A
+actor "Administrador" as ADM
+rectangle "FatecLab" {
+  usecase "UC01 Criar conta" as UC01
+  usecase "UC02 Entrar no sistema" as UC02
+  usecase "UC03 Sair do sistema" as UC03
+  usecase "UC04 Consultar trilhas" as UC04
+  usecase "UC05 Iniciar trilha" as UC05
+  usecase "UC06 Estudar módulo" as UC06
+  usecase "Responder quiz" as QUIZ
+  usecase "Receber bônus\nde gabarito" as BONUS
+  usecase "UC07 Consultar ranking" as UC07
+  usecase "UC08 Consultar perfil\ne conquistas" as UC08
+  usecase "UC09 Manter trilhas,\nlições e questões" as UC09
+}
+V --> UC01
+V --> UC02
+A --> UC03
+A --> UC04
+A --> UC05
+A --> UC06
+A --> UC07
+A --> UC08
+ADM --> UC03
+ADM --> UC09
+UC06 ..> QUIZ : <<include>>
+BONUS ..> QUIZ : <<extend>>
+@enduml

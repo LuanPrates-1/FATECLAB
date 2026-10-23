@@ -1,0 +1,40 @@
+@startuml
+!include estilo.iuml
+|Aluno|
+start
+:Selecionar o módulo atual no mapa da trilha;
+|Sistema|
+:Verificar se o módulo está liberado (RN04);
+if (Módulo liberado?) then (não)
+  :Informar que é preciso concluir os módulos anteriores;
+  stop
+else (sim)
+endif
+:Exibir a lição;
+if (Módulo possui quiz?) then (não)
+  |Aluno|
+  :Concluir módulo;
+  |Sistema|
+else (sim)
+  |Aluno|
+  :Iniciar o quiz;
+  repeat
+    |Aluno|
+    :Escolher uma alternativa e verificar;
+    |Sistema|
+    :Corrigir a questão e exibir a explicação;
+  repeat while (Há outra questão?) is (sim) not (não)
+  :Calcular acertos e mínimo para aprovação (RN06);
+  if (Atingiu o mínimo?) then (não)
+    :Exibir resultado e oferecer nova tentativa;
+    stop
+  else (sim)
+  endif
+endif
+:Registrar conclusão e creditar XP\n(com bônus de gabarito, RN07);
+:Atualizar nível, ofensiva e ranking (RN08, RN09);
+:Liberar o próximo módulo ou concluir a trilha;
+|Aluno|
+:Visualizar resultado;
+stop
+@enduml

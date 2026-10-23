@@ -1,0 +1,80 @@
+@startuml
+!include estilo.iuml
+hide circle
+hide methods
+skinparam linetype ortho
+entity "usuario" as usuario {
+  * id : BIGINT <<PK>>
+  --
+  nome : VARCHAR(255)
+  email : VARCHAR(255) <<UK>>
+  senha_hash : VARCHAR(255)
+  papel : VARCHAR(20)
+  apelido : VARCHAR(100)
+  xp_total : INT
+  ofensiva_atual : INT
+  maior_ofensiva : INT
+  ultima_atividade : DATE
+  criado_em : TIMESTAMP
+}
+entity "trilha_de_estudo" as trilha {
+  * id : BIGINT <<PK>>
+  --
+  titulo : VARCHAR(255)
+  area : VARCHAR(100)
+  nivel : VARCHAR(20)
+  descricao : VARCHAR(500)
+  ativa : BOOLEAN
+}
+entity "modulo" as modulo {
+  * id : BIGINT <<PK>>
+  --
+  trilha_id : BIGINT <<FK>>
+  ordem : INT
+  titulo : VARCHAR(255)
+  conteudo : TEXT
+  xp_concedido : INT
+}
+entity "questao" as questao {
+  * id : BIGINT <<PK>>
+  --
+  modulo_id : BIGINT <<FK>>
+  ordem : INT
+  enunciado : TEXT
+  explicacao : TEXT
+}
+entity "alternativa" as alternativa {
+  * id : BIGINT <<PK>>
+  --
+  questao_id : BIGINT <<FK>>
+  ordem : INT
+  texto : VARCHAR(500)
+  correta : BOOLEAN
+}
+entity "progresso_aluno" as progresso {
+  * id : BIGINT <<PK>>
+  --
+  aluno_id : BIGINT <<FK>>
+  trilha_id : BIGINT <<FK>>
+  status : VARCHAR(20)
+  modulo_atual_id : BIGINT <<FK>>
+  xp_obtido_na_trilha : INT
+}
+entity "progresso_modulo" as pm {
+  * id : BIGINT <<PK>>
+  --
+  progresso_aluno_id : BIGINT <<FK>>
+  modulo_id : BIGINT <<FK>>
+  concluido_em : TIMESTAMP
+  acertos : INT
+  total_questoes : INT
+}
+trilha ||--|{ modulo
+modulo ||--o{ questao
+questao ||--|{ alternativa
+usuario ||--o{ progresso
+trilha ||--o{ progresso
+progresso ||--o{ pm
+modulo ||--o{ pm
+modulo |o..o{ progresso : módulo atual
+@enduml

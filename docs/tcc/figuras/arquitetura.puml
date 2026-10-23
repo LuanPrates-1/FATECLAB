@@ -1,0 +1,21 @@
+@startuml
+!include estilo.iuml
+skinparam componentStyle rectangle
+node "Navegador (celular ou computador)" {
+  component "Front-end\nReact + TypeScript (Vite)\nPWA instalável" as FE
+}
+node "Servidor de aplicação (Render)" {
+  component "Spring Security + JWT" as SEC
+  component "Controllers REST" as CTRL
+  component "Serviços\n(regras de negócio)" as SRV
+  component "Repositórios\nSpring Data JPA" as REPO
+}
+database "MySQL 8\n(Flyway)" as DB
+node "Hospedagem estática (Vercel)" as VER
+VER ..> FE : entrega HTML, CSS e JS
+FE --> SEC : HTTPS + JSON\nAuthorization: Bearer
+SEC --> CTRL
+CTRL --> SRV
+SRV --> REPO
+REPO --> DB : JDBC (SSL)
+@enduml
