@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.Instant;
+import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -58,4 +59,45 @@ public class Usuario {
     @Column(name = "criado_em", nullable = false)
     @Builder.Default
     private Instant criadoEm = Instant.now();
+
+    /** Dias seguidos com pelo menos um módulo concluído (ofensiva). */
+    @Column(name = "ofensiva_atual", nullable = false)
+    @Builder.Default
+    private Integer ofensivaAtual = 0;
+
+    @Column(name = "maior_ofensiva", nullable = false)
+    @Builder.Default
+    private Integer maiorOfensiva = 0;
+
+    /** Último dia (fuso America/Sao_Paulo) em que o aluno concluiu um módulo. */
+    @Column(name = "ultima_atividade")
+    private LocalDate ultimaAtividade;
+
+    /**
+     * Registra estudo no dia informado: mantém a ofensiva se já estudou hoje, soma um dia se
+     * estudou ontem e reinicia em 1 se ficou um ou mais dias sem estudar.
+     */
+    public void registrarAtividade(LocalDate hoje) {
+        int atual = ofensivaAtual == null ? 0 : ofensivaAtual;
+        if (hoje.equals(ultimaAtividade)) {
+            return;
+        }
+        if (ultimaAtividade != null && ultimaAtividade.plusDays(1).equals(hoje)) {
+            atual++;
+        } else {
+            atual = 1;
+        }
+        ofensivaAtual = atual;
+        maiorOfensiva = Math.max(maiorOfensiva == null ? 0 : maiorOfensiva, atual);
+        ultimaAtividade = hoje;
+    }
+
+    /** Ofensiva válida hoje: zera se o aluno não estudou nem hoje nem ontem. */
+    public int ofensivaVigente(LocalDate hoje) {
+        if (ultimaAtividade == null || ofensivaAtual == null) {
+            return 0;
+        }
+        boolean ativa = !ultimaAtividade.isBefore(hoje.minusDays(1));
+        return ativa ? ofensivaAtual : 0;
+    }
 }

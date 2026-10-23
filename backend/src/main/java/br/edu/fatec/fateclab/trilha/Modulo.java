@@ -1,5 +1,7 @@
 package br.edu.fatec.fateclab.trilha;
 
+import br.edu.fatec.fateclab.quiz.Questao;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -8,14 +10,18 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-/** data-model.md "Modulo": unidade de conteúdo dentro de uma trilha; conclusão credita XP. */
+/** Unidade de conteúdo de uma trilha: lição (texto) e quiz opcional; a conclusão credita XP. */
 @Entity
 @Table(name = "modulo")
 @Getter
@@ -45,4 +51,10 @@ public class Modulo {
 
     @Column(name = "xp_concedido", nullable = false)
     private Integer xpConcedido;
+
+    /** Quiz do módulo. Sem questões, o módulo é concluído apenas com a leitura da lição. */
+    @OneToMany(mappedBy = "modulo", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("ordem ASC")
+    @Builder.Default
+    private List<Questao> questoes = new ArrayList<>();
 }

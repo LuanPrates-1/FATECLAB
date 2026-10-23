@@ -1,3 +1,4 @@
+# Banco MySQL local para desenvolvimento: docker compose up -d
 services:
   mysql:
     image: mysql:8
@@ -5,6 +6,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: fateclab
       MYSQL_DATABASE: fateclab
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     ports:
       - "3306:3306"
     volumes:

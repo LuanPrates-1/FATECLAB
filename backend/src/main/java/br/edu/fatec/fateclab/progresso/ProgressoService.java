@@ -2,6 +2,7 @@ package br.edu.fatec.fateclab.progresso;
 
 import br.edu.fatec.fateclab.auth.Usuario;
 import br.edu.fatec.fateclab.auth.UsuarioRepository;
+import br.edu.fatec.fateclab.gamificacao.Relogio;
 import br.edu.fatec.fateclab.shared.ConflitoException;
 import br.edu.fatec.fateclab.shared.RecursoNaoEncontradoException;
 import br.edu.fatec.fateclab.trilha.Modulo;
@@ -16,8 +17,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Inicia trilhas, credita XP ao concluir módulos em ordem (FR-009, FR-010) e mantém o
- * {@code xpTotal} denormalizado do aluno para leitura rápida do ranking (research.md §8).
+ * Inicia trilhas, credita XP ao concluir módulos em ordem (RF09, RF10), atualiza a ofensiva do
+ * aluno e mantém o {@code xpTotal} denormalizado para leitura rápida do ranking.
  */
 @Service
 public class ProgressoService {
@@ -75,13 +76,20 @@ public class ProgressoService {
         return progresso;
     }
 
+    /** Conclusão de módulo sem quiz (somente leitura da lição). */
     @Transactional
     public ProgressoAluno concluirModulo(Long alunoId, Long trilhaId, Long moduloId) {
-        ProgressoAluno progresso =
-                progressoAlunoRepository
-                        .findByAlunoIdAndTrilhaId(alunoId, trilhaId)
-                        .orElseThrow(
-                                () -> new RecursoNaoEncontradoException("Trilha ainda não iniciada por este aluno"));
+        return concluirModulo(alunoId, trilhaId, moduloId, null);
+    }
+
+    /**
+     * Conclui o módulo atual da trilha e credita o XP do módulo, mais o bônus de gabarito quando
+     * houver. {@code resultado} é nulo para módulos sem quiz.
+     */
+    @Transactional
+    public ProgressoAluno concluirModulo(
+            Long alunoId, Long trilhaId, Long moduloId, ResultadoQuiz resultado) {
+        ProgressoAluno progresso = buscarProgresso(alunoId, trilhaId);
 
         Modulo moduloAtual = progresso.getModuloAtual();
         if (moduloAtual == null || !moduloAtual.getId().equals(moduloId)) {
@@ -89,14 +97,20 @@ public class ProgressoService {
                     "Conclua os módulos em ordem: este não é o módulo atual da trilha");
         }
 
-        progressoModuloRepository.save(
-                ProgressoModulo.builder().progressoAluno(progresso).modulo(moduloAtual).build());
+        ProgressoModulo.ProgressoModuloBuilder registro =
+                ProgressoModulo.builder().progressoAluno(progresso).modulo(moduloAtual);
+        if (resultado != null) {
+            registro.acertos(resultado.acertos()).totalQuestoes(resultado.totalQuestoes());
+        }
+        progressoModuloRepository.save(registro.build());
 
-        int xpConcedido = moduloAtual.getXpConcedido();
+        int bonus = resultado != null ? resultado.bonusXp() : 0;
+        int xpConcedido = moduloAtual.getXpConcedido() + bonus;
         progresso.setXpObtidoNaTrilha(progresso.getXpObtidoNaTrilha() + xpConcedido);
 
         Usuario aluno = progresso.getAluno();
         aluno.setXpTotal(aluno.getXpTotal() + xpConcedido);
+        aluno.registrarAtividade(Relogio.hoje());
         usuarioRepository.save(aluno);
 
         var proximoModulo =
@@ -117,6 +131,15 @@ public class ProgressoService {
                 moduloId,
                 xpConcedido);
         return progresso;
+    }
+
+    public ProgressoAluno buscarProgresso(Long alunoId, Long trilhaId) {
+        return progressoAlunoRepository
+                .findByAlunoIdAndTrilhaId(alunoId, trilhaId)
+                .orElseThrow(
+                        () ->
+                                new RecursoNaoEncontradoException(
+                                        "Trilha ainda não iniciada por este aluno"));
     }
 
     public List<ProgressoAluno> listarProgressoDoAluno(Long alunoId) {

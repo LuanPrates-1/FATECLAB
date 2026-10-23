@@ -48,4 +48,10 @@ public class ProgressoModulo {
     @Column(name = "concluido_em", nullable = false)
     @Builder.Default
     private Instant concluidoEm = Instant.now();
+
+    /** Acertos no quiz que concluiu o módulo; nulo quando o módulo não tem quiz. */
+    private Integer acertos;
+
+    @Column(name = "total_questoes")
+    private Integer totalQuestoes;
 }

@@ -2,6 +2,7 @@ package br.edu.fatec.fateclab.progresso;
 
 import br.edu.fatec.fateclab.config.AuthenticatedUser;
 import br.edu.fatec.fateclab.progresso.dto.ProgressoResponse;
+import br.edu.fatec.fateclab.quiz.QuizService;
 import java.util.List;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,15 +12,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * POST /trilhas/{trilhaId}/iniciar, POST /trilhas/{trilhaId}/modulos/{moduloId}/concluir e
- * GET /alunos/me/progresso, per contracts/openapi.yaml.
+ * GET /alunos/me/progresso. Módulos com quiz são concluídos por {@code /responder}.
  */
 @RestController
 public class ProgressoController {
 
     private final ProgressoService progressoService;
+    private final QuizService quizService;
 
-    public ProgressoController(ProgressoService progressoService) {
+    public ProgressoController(ProgressoService progressoService, QuizService quizService) {
         this.progressoService = progressoService;
+        this.quizService = quizService;
     }
 
     @PostMapping("/api/trilhas/{trilhaId}/iniciar")
@@ -33,6 +36,7 @@ public class ProgressoController {
             @AuthenticationPrincipal AuthenticatedUser usuario,
             @PathVariable Long trilhaId,
             @PathVariable Long moduloId) {
+        quizService.garantirModuloSemQuiz(trilhaId, moduloId);
         return ProgressoResponse.de(progressoService.concluirModulo(usuario.id(), trilhaId, moduloId));
     }
 

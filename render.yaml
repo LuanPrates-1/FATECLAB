@@ -1,0 +1,20 @@
+# Blueprint do Render (https://render.com): cria o serviço do back-end a partir deste repositório.
+# As variáveis marcadas com sync: false são preenchidas no painel do Render.
+services:
+  - type: web
+    name: fateclab-api
+    runtime: docker
+    rootDir: backend
+    plan: free
+    healthCheckPath: /api/saude
+    envVars:
+      - key: DB_URL
+        sync: false
+      - key: DB_USUARIO
+        sync: false
+      - key: DB_SENHA
+        sync: false
+      - key: FATECLAB_JWT_SECRET
+        generateValue: true
+      - key: FATECLAB_CORS_ORIGENS
+        value: https://*.vercel.app

@@ -8,4 +8,6 @@ public interface ProgressoAlunoRepository extends JpaRepository<ProgressoAluno, 
     Optional<ProgressoAluno> findByAlunoIdAndTrilhaId(Long alunoId, Long trilhaId);
 
     List<ProgressoAluno> findByAlunoId(Long alunoId);
+
+    boolean existsByModuloAtual_Id(Long moduloId);
 }

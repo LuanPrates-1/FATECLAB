@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-/** GET /trilhas e GET /trilhas/{trilhaId}, per contracts/openapi.yaml. Exige autenticação (FR-004). */
+/** GET /trilhas e GET /trilhas/{trilhaId}. Exige autenticação (RF04). */
 @RestController
 @RequestMapping("/api/trilhas")
 public class TrilhaController {
@@ -24,11 +24,11 @@ public class TrilhaController {
     public List<TrilhaResponse> listar(
             @RequestParam(required = false) String area,
             @RequestParam(required = false) NivelTrilha nivel) {
-        return trilhaService.listar(area, nivel).stream().map(TrilhaResponse::de).toList();
+        return trilhaService.listar(area, nivel);
     }
 
     @GetMapping("/{trilhaId}")
     public TrilhaDetalheResponse detalhar(@PathVariable Long trilhaId) {
-        return TrilhaDetalheResponse.de(trilhaService.buscarPorId(trilhaId));
+        return trilhaService.detalhar(trilhaId);
     }
 }

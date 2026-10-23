@@ -2,30 +2,41 @@ spring:
   application:
     name: fateclab
   datasource:
-    url: jdbc:mysql://localhost:3306/fateclab?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-    username: root
-    password: fateclab
+    # Em hospedagem, defina DB_URL, DB_USUARIO e DB_SENHA (ver docs/implantacao.md).
+    url: ${DB_URL:jdbc:mysql://localhost:3306/fateclab?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC}
+    username: ${DB_USUARIO:root}
+    password: ${DB_SENHA:fateclab}
+    hikari:
+      maximum-pool-size: ${DB_POOL:5}
   jpa:
     hibernate:
-      # Schema é controlado pelo Flyway (research.md §5); Hibernate nunca gera/altera DDL.
+      # O esquema é controlado pelo Flyway; o Hibernate apenas valida.
       ddl-auto: validate
     open-in-view: false
   flyway:
     enabled: true
-    locations: classpath:db/migration
+    # db/seed contém as trilhas, questões e usuários de demonstração.
+    # Para subir sem dados de exemplo: FATECLAB_FLYWAY_LOCATIONS=classpath:db/migration
+    locations: ${FATECLAB_FLYWAY_LOCATIONS:classpath:db/migration,classpath:db/seed}
 
 server:
-  port: 8080
+  port: ${PORT:8080}
+  # Respostas compactadas: melhora o carregamento em rede móvel.
+  compression:
+    enabled: true
 
-# Domínio(s) de e-mail institucional aceitos no cadastro de aluno (FR-017, research.md §7).
-# Configurável para não exigir alteração de código caso o domínio institucional mude.
 fateclab:
   auth:
-    dominios-institucionais: fatec.sp.gov.br
-    # Segredo usado para assinar os JWTs (research.md §4). Em produção/homologação DEVE vir de
-    # uma variável de ambiente (FATECLAB_JWT_SECRET), nunca commitado em texto plano.
+    # Domínio(s) de e-mail institucional aceitos no cadastro, separados por vírgula.
+    dominios-institucionais: ${FATECLAB_DOMINIOS:fatec.sp.gov.br}
+    # Segredo para assinar os JWTs. Em hospedagem, SEMPRE defina FATECLAB_JWT_SECRET
+    # (mínimo de 32 caracteres).
     jwt-secret: ${FATECLAB_JWT_SECRET:troque-este-segredo-apenas-em-desenvolvimento-local}
-    jwt-expiracao-minutos: 480
+    jwt-expiracao-minutos: ${FATECLAB_JWT_EXPIRACAO_MINUTOS:480}
+  cors:
+    # Origens do front-end autorizadas, separadas por vírgula. Aceita curingas,
+    # ex.: https://fateclab.vercel.app,https://*.vercel.app
+    origens: ${FATECLAB_CORS_ORIGENS:http://localhost:5173,http://localhost:4173}
 
 logging:
   level:

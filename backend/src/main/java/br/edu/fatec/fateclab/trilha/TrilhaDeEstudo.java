@@ -44,6 +44,10 @@ public class TrilhaDeEstudo {
     @Column(nullable = false, length = 20)
     private NivelTrilha nivel;
 
+    /** Resumo exibido no cartão da trilha. */
+    @Column(length = 500)
+    private String descricao;
+
     /**
      * {@code false} quando o administrador remove a trilha (edge case: alunos podem já ter
      * progresso registrado nela) — trilhas inativas somem da listagem de alunos (FR-006) mas o
