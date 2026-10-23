@@ -2,7 +2,7 @@
 
 Banco relacional MySQL 8, com esquema versionado pelo Flyway em
 `backend/src/main/resources/db/migration` (V1 a V4). Os dados de demonstração ficam separados em
-`db/seed` (V4_1) e podem ser desligados por variável de ambiente.
+`db/seed` (V4_1 e V4_2) e podem ser desligados por variável de ambiente.
 
 ## Diagrama entidade-relacionamento
 

@@ -25,6 +25,18 @@
   justify-content: space-between;
   padding: 10px 20px 12px;
   border-bottom: 1px solid var(--linha);
+  position: relative;
+}
+
+/* Detalhe cyberpunk: um filete amarelo que se dissolve em roxo sob a barra. */
+.barra-topo::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 46%;
+  height: 1px;
+  background: linear-gradient(90deg, var(--amarelo), var(--roxo) 60%, transparent);
 }
 
 .barra-topo-indicadores {
@@ -47,13 +59,13 @@
 }
 
 .indicador-ofensiva.ativo {
-  color: var(--magenta);
-  border-color: rgba(255, 79, 176, 0.4);
+  color: var(--roxo);
+  border-color: rgba(177, 132, 255, 0.4);
 }
 
 .indicador-xp {
-  color: var(--ambar);
-  border-color: rgba(255, 200, 87, 0.35);
+  color: var(--xp);
+  border-color: rgba(245, 220, 58, 0.35);
 }
 
 .conteudo-app {
@@ -96,7 +108,7 @@
 }
 
 .navegacao-item.active {
-  color: var(--ciano);
+  color: var(--amarelo);
 }
 
 .navegacao-item.active::before {
@@ -106,8 +118,8 @@
   left: 30%;
   right: 30%;
   height: 2px;
-  background: var(--ciano);
-  box-shadow: 0 0 10px var(--ciano-brilho);
+  background: var(--amarelo);
+  box-shadow: 0 0 10px var(--amarelo-brilho);
 }
 
 /* Página padrão dentro do app */
@@ -143,5 +155,5 @@
   border-radius: 12px;
   border: 1px solid var(--linha);
   background: var(--noite-funda);
-  color: var(--ciano);
+  color: var(--amarelo);
 }

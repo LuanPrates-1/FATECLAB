@@ -1,13 +1,17 @@
 // Gera o SQL de demonstração do back-end e o JSON do modo demonstração do front-end
 // a partir de conteudo/trilhas.mjs. Uso (na pasta frontend): npm run gerar:dados
-import { writeFileSync } from "node:fs";
+import { existsSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import bcrypt from "bcryptjs";
 import { trilhas, usuarios } from "../../conteudo/trilhas.mjs";
 
 const raiz = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
-const destinoSql = resolve(raiz, "backend/src/main/resources/db/seed/V4_1__dados_demonstracao.sql");
+const pastaSeed = resolve(raiz, "backend/src/main/resources/db/seed");
+// Lote 1 (usuários + trilhas originais) vai para a V4_1; trilhas com "migracao: N" vão para V4_N.
+// Uma migração já existente nunca é reescrita: alterar um arquivo aplicado quebra o checksum do Flyway.
+const arquivoSeed = (lote) =>
+  lote === 1 ? "V4_1__dados_demonstracao.sql" : `V4_${lote}__trilhas_adicionais_${lote}.sql`;
 const destinoJson = resolve(raiz, "frontend/src/demo/dadosDemo.json");
 
 // Embaralhamento determinístico das alternativas, para a resposta certa não ficar sempre
@@ -32,6 +36,7 @@ let idAlternativa = 0;
 
 const trilhasComIds = trilhas.map((t, i) => ({
   id: i + 1,
+  lote: t.migracao ?? 1,
   titulo: t.titulo,
   area: t.area,
   nivel: t.nivel,
@@ -66,25 +71,8 @@ const trilhasComIds = trilhas.map((t, i) => ({
 const usuariosComIds = usuarios.map((u, i) => ({ id: i + 1, ...u }));
 
 // ---------- SQL ----------
-const linhas = [
-  "-- GERADO AUTOMATICAMENTE por frontend/scripts/gerar-dados-demo.mjs a partir de conteudo/trilhas.mjs.",
-  "-- Não edite à mão: altere o conteúdo e rode `npm run gerar:dados` na pasta frontend.",
-  "-- Dados de demonstração (trilhas, lições, quizzes e usuários fictícios).",
-  "",
-];
-
-for (const u of usuariosComIds) {
-  const hash = bcrypt.hashSync(u.senha, 10);
-  const ultima =
-    u.diasAtras === null ? "NULL" : u.diasAtras === 0 ? "CURRENT_DATE" : `DATE_SUB(CURRENT_DATE, INTERVAL ${u.diasAtras} DAY)`;
-  linhas.push(
-    `INSERT INTO usuario (id, nome, email, senha_hash, papel, apelido, xp_total, ofensiva_atual, maior_ofensiva, ultima_atividade) VALUES (${u.id}, ${sqlTexto(u.nome)}, ${sqlTexto(u.email)}, ${sqlTexto(hash)}, ${sqlTexto(u.papel)}, ${sqlTexto(u.apelido)}, ${u.xp}, ${u.ofensiva}, ${u.maiorOfensiva}, ${ultima});`,
-  );
-}
-linhas.push("");
-
-for (const t of trilhasComIds) {
-  linhas.push(`-- Trilha ${t.id}: ${t.titulo}`);
+function sqlTrilha(t) {
+  const linhas = [`-- Trilha ${t.id}: ${t.titulo}`];
   linhas.push(
     `INSERT INTO trilha_de_estudo (id, titulo, area, nivel, descricao, ativa) VALUES (${t.id}, ${sqlTexto(t.titulo)}, ${sqlTexto(t.area)}, ${sqlTexto(t.nivel)}, ${sqlTexto(t.descricao)}, TRUE);`,
   );
@@ -104,16 +92,46 @@ for (const t of trilhasComIds) {
     }
   }
   linhas.push("");
+  return linhas;
 }
 
-writeFileSync(destinoSql, linhas.join("\n"));
+const lotes = [...new Set(trilhasComIds.map((t) => t.lote))].sort((a, b) => a - b);
+for (const lote of lotes) {
+  const destino = resolve(pastaSeed, arquivoSeed(lote));
+  if (existsSync(destino) && !process.argv.includes("--reescrever")) {
+    console.log(`Mantido (já existe): ${arquivoSeed(lote)}`);
+    continue;
+  }
+  const linhas = [
+    "-- GERADO AUTOMATICAMENTE por frontend/scripts/gerar-dados-demo.mjs a partir de conteudo/trilhas.mjs.",
+    "-- Não edite à mão. Depois de aplicada no banco, uma migração não deve mais ser alterada.",
+    lote === 1
+      ? "-- Dados de demonstração (trilhas, lições, quizzes e usuários fictícios)."
+      : `-- Trilhas adicionadas no lote ${lote}.`,
+    "",
+  ];
+  if (lote === 1) {
+    for (const u of usuariosComIds) {
+      const hash = bcrypt.hashSync(u.senha, 10);
+      const ultima =
+        u.diasAtras === null ? "NULL" : u.diasAtras === 0 ? "CURRENT_DATE" : `DATE_SUB(CURRENT_DATE, INTERVAL ${u.diasAtras} DAY)`;
+      linhas.push(
+        `INSERT INTO usuario (id, nome, email, senha_hash, papel, apelido, xp_total, ofensiva_atual, maior_ofensiva, ultima_atividade) VALUES (${u.id}, ${sqlTexto(u.nome)}, ${sqlTexto(u.email)}, ${sqlTexto(hash)}, ${sqlTexto(u.papel)}, ${sqlTexto(u.apelido)}, ${u.xp}, ${u.ofensiva}, ${u.maiorOfensiva}, ${ultima});`,
+      );
+    }
+    linhas.push("");
+  }
+  for (const t of trilhasComIds.filter((x) => x.lote === lote)) linhas.push(...sqlTrilha(t));
+  writeFileSync(destino, linhas.join("\n"));
+  console.log(`Gerado: ${arquivoSeed(lote)}`);
+}
 
 // ---------- JSON do modo demonstração ----------
 writeFileSync(
   destinoJson,
   JSON.stringify(
     {
-      trilhas: trilhasComIds,
+      trilhas: trilhasComIds.map(({ lote, ...t }) => t),
       usuarios: usuariosComIds.map(({ senha, ...resto }) => ({ ...resto, senha })),
     },
     null,

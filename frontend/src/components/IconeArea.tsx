@@ -1,4 +1,4 @@
-import { BookOpen, Code2, Database, Globe, Network, Workflow } from "lucide-react";
+import { BookOpen, Code2, Database, Globe, Network, ShieldCheck, Workflow } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 const ICONES: Record<string, LucideIcon> = {
@@ -8,6 +8,8 @@ const ICONES: Record<string, LucideIcon> = {
   infraestrutura: Network,
   redes: Network,
   web: Globe,
+  "segurança": ShieldCheck,
+  "cibersegurança": ShieldCheck,
 };
 
 export function IconeArea({ area, tamanho = 22 }: { area: string; tamanho?: number }) {

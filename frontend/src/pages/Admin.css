@@ -133,8 +133,8 @@
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  border: 1px solid var(--ciano-escuro);
-  color: var(--ciano);
+  border: 1px solid var(--amarelo-escuro);
+  color: var(--amarelo);
   font-family: var(--fonte-titulo);
   font-size: var(--t-xs);
   font-weight: 600;

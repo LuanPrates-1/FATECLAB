@@ -2582,6 +2582,435 @@
           ]
         }
       ]
+    },
+    {
+      "id": 8,
+      "titulo": "Cibersegurança",
+      "area": "Segurança",
+      "nivel": "INTERMEDIARIO",
+      "descricao": "Os pilares da segurança da informação, senhas e autenticação, ataques comuns em aplicações web e criptografia na prática.",
+      "modulos": [
+        {
+          "id": 25,
+          "ordem": 1,
+          "titulo": "Fundamentos da segurança da informação",
+          "xpConcedido": 30,
+          "conteudo": "A segurança da informação protege dados e sistemas contra acesso, alteração e indisponibilidade indevidos. Ela se apoia em três pilares, conhecidos como **tríade CID**:\n\n- **Confidencialidade**: só quem tem permissão acessa a informação (ex.: suas notas no sistema acadêmico)\n- **Integridade**: a informação não é alterada de forma indevida (ex.: ninguém muda sua nota no caminho)\n- **Disponibilidade**: a informação está acessível quando necessária (ex.: o sistema não cai na semana de provas)\n\n## Ameaça, vulnerabilidade e risco\n\n- **Vulnerabilidade**: uma fraqueza, como um sistema desatualizado ou uma senha fraca\n- **Ameaça**: algo ou alguém que pode explorar a vulnerabilidade, como um atacante ou um malware\n- **Risco**: a chance de a ameaça explorar a vulnerabilidade, combinada com o impacto que isso causaria\n\nReduzir o risco é o objetivo: corrigir vulnerabilidades, dificultar ameaças e diminuir o impacto (backups, por exemplo).\n\n## Defesa em profundidade\n\nNenhuma proteção é perfeita, então se usam **várias camadas**: firewall, atualização de sistemas, controle de acesso, criptografia, monitoramento e conscientização dos usuários. Se uma camada falha, as outras continuam protegendo.\n\n## Engenharia social\n\nMuitos ataques exploram pessoas, não máquinas. O **phishing** é uma mensagem falsa, que imita um banco ou a própria faculdade, para fazer a vítima clicar em um link ou entregar a senha. Desconfie de urgência, confira o remetente e o endereço do site antes de digitar dados.",
+          "questoes": [
+            {
+              "id": 73,
+              "ordem": 1,
+              "enunciado": "Um invasor altera o valor de uma transferência enquanto ela trafega pela rede. Qual pilar da segurança foi violado?",
+              "explicacao": "A informação foi modificada de forma indevida: isso fere a integridade.",
+              "alternativas": [
+                {
+                  "id": 289,
+                  "ordem": 1,
+                  "texto": "Disponibilidade",
+                  "correta": false
+                },
+                {
+                  "id": 290,
+                  "ordem": 2,
+                  "texto": "Integridade",
+                  "correta": true
+                },
+                {
+                  "id": 291,
+                  "ordem": 3,
+                  "texto": "Confidencialidade",
+                  "correta": false
+                },
+                {
+                  "id": 292,
+                  "ordem": 4,
+                  "texto": "Autenticidade do usuário",
+                  "correta": false
+                }
+              ]
+            },
+            {
+              "id": 74,
+              "ordem": 2,
+              "enunciado": "Um servidor sem atualizações de segurança há dois anos é um exemplo de:",
+              "explicacao": "É uma fraqueza que pode ser explorada. A ameaça seria o atacante que a explora.",
+              "alternativas": [
+                {
+                  "id": 293,
+                  "ordem": 1,
+                  "texto": "Risco",
+                  "correta": false
+                },
+                {
+                  "id": 294,
+                  "ordem": 2,
+                  "texto": "Ameaça",
+                  "correta": false
+                },
+                {
+                  "id": 295,
+                  "ordem": 3,
+                  "texto": "Incidente",
+                  "correta": false
+                },
+                {
+                  "id": 296,
+                  "ordem": 4,
+                  "texto": "Vulnerabilidade",
+                  "correta": true
+                }
+              ]
+            },
+            {
+              "id": 75,
+              "ordem": 3,
+              "enunciado": "Um e-mail com o logotipo da Fatec pede, com urgência, que você confirme sua senha em um link. Isso é provavelmente:",
+              "explicacao": "Urgência e pedido de senha por link são sinais clássicos de phishing. Instituições não pedem sua senha por e-mail.",
+              "alternativas": [
+                {
+                  "id": 297,
+                  "ordem": 1,
+                  "texto": "Uma atualização automática",
+                  "correta": false
+                },
+                {
+                  "id": 298,
+                  "ordem": 2,
+                  "texto": "Um aviso oficial de rotina",
+                  "correta": false
+                },
+                {
+                  "id": 299,
+                  "ordem": 3,
+                  "texto": "Um teste de disponibilidade",
+                  "correta": false
+                },
+                {
+                  "id": 300,
+                  "ordem": 4,
+                  "texto": "Phishing",
+                  "correta": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 26,
+          "ordem": 2,
+          "titulo": "Senhas e autenticação",
+          "xpConcedido": 30,
+          "conteudo": "**Autenticação** é provar quem você é; **autorização** é definir o que você pode fazer depois de autenticado. No FatecLab, o login autentica, e o papel de administrador autoriza o acesso ao painel.\n\n## Como guardar senhas\n\nUm sistema **nunca** deve guardar a senha em texto puro. Ele guarda um **hash**: o resultado de uma função de mão única, que não pode ser revertida.\n\n- **Salt**: um valor aleatório somado à senha antes do hash. Assim, duas pessoas com a mesma senha têm hashes diferentes, e tabelas prontas de hashes (rainbow tables) deixam de funcionar\n- Use algoritmos **lentos de propósito**, feitos para senhas, como **bcrypt** ou Argon2. MD5 e SHA-1 são rápidos demais e permitem testar bilhões de tentativas\n\n```\nsenha \"fatec2026\" + salt  ->  bcrypt  ->  $2a$10$N9qo8uLOickgx2ZMRZoMye...\n```\n\n## Senhas fortes\n\nComprimento vale mais que complexidade: uma frase longa como `cafe-com-pao-na-fatec` é mais forte e mais fácil de lembrar que `F@t3c!`. Não repita senhas entre serviços e use um gerenciador de senhas.\n\n## Autenticação multifator (MFA)\n\nCombina fatores de tipos diferentes:\n\n- algo que você **sabe** (senha)\n- algo que você **tem** (celular com aplicativo autenticador)\n- algo que você **é** (biometria)\n\nCom MFA, uma senha vazada sozinha não basta para invadir a conta.",
+          "questoes": [
+            {
+              "id": 76,
+              "ordem": 1,
+              "enunciado": "Qual é a forma correta de um sistema armazenar as senhas dos usuários?",
+              "explicacao": "Hash com salt em algoritmo lento impede recuperar a senha e dificulta ataques de força bruta. Base64 é só codificação e se reverte facilmente.",
+              "alternativas": [
+                {
+                  "id": 301,
+                  "ordem": 1,
+                  "texto": "Codificadas em Base64",
+                  "correta": false
+                },
+                {
+                  "id": 302,
+                  "ordem": 2,
+                  "texto": "Criptografadas com uma chave guardada no próprio servidor",
+                  "correta": false
+                },
+                {
+                  "id": 303,
+                  "ordem": 3,
+                  "texto": "Como hash com salt, usando um algoritmo como bcrypt",
+                  "correta": true
+                },
+                {
+                  "id": 304,
+                  "ordem": 4,
+                  "texto": "Em texto puro, em uma tabela protegida",
+                  "correta": false
+                }
+              ]
+            },
+            {
+              "id": 77,
+              "ordem": 2,
+              "enunciado": "Para que serve o salt no armazenamento de senhas?",
+              "explicacao": "Com um salt aleatório por usuário, o mesmo texto gera hashes distintos e as rainbow tables deixam de servir.",
+              "alternativas": [
+                {
+                  "id": 305,
+                  "ordem": 1,
+                  "texto": "Deixar o hash mais curto",
+                  "correta": false
+                },
+                {
+                  "id": 306,
+                  "ordem": 2,
+                  "texto": "Permitir recuperar a senha original",
+                  "correta": false
+                },
+                {
+                  "id": 307,
+                  "ordem": 3,
+                  "texto": "Fazer senhas iguais gerarem hashes diferentes e inutilizar tabelas prontas de hashes",
+                  "correta": true
+                },
+                {
+                  "id": 308,
+                  "ordem": 4,
+                  "texto": "Substituir a autenticação multifator",
+                  "correta": false
+                }
+              ]
+            },
+            {
+              "id": 78,
+              "ordem": 3,
+              "enunciado": "Senha e código do aplicativo autenticador no celular combinam quais fatores?",
+              "explicacao": "A senha é conhecimento (sabe); o celular é posse (tem). Por serem de tipos diferentes, formam uma MFA de verdade.",
+              "alternativas": [
+                {
+                  "id": 309,
+                  "ordem": 1,
+                  "texto": "Algo que você é e algo que você sabe",
+                  "correta": false
+                },
+                {
+                  "id": 310,
+                  "ordem": 2,
+                  "texto": "Algo que você tem e algo que você é",
+                  "correta": false
+                },
+                {
+                  "id": 311,
+                  "ordem": 3,
+                  "texto": "Algo que você sabe e algo que você tem",
+                  "correta": true
+                },
+                {
+                  "id": 312,
+                  "ordem": 4,
+                  "texto": "Dois fatores do mesmo tipo",
+                  "correta": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 27,
+          "ordem": 3,
+          "titulo": "Ataques comuns em aplicações web",
+          "xpConcedido": 35,
+          "conteudo": "O **OWASP Top 10** é a lista de referência dos riscos mais críticos em aplicações web. Três deles aparecem o tempo todo:\n\n## Injeção de SQL\n\nAcontece quando a entrada do usuário é **concatenada** direto na consulta:\n\n```\n\"SELECT * FROM usuario WHERE email = '\" + email + \"'\"\n-- email digitado: ' OR '1'='1\n```\n\nA consulta passa a retornar todos os usuários. A defesa é usar **consultas parametrizadas** (prepared statements), em que o banco trata a entrada como dado, nunca como comando. O Spring Data JPA, usado no FatecLab, faz isso por padrão.\n\n## Cross-site scripting (XSS)\n\nO atacante consegue que a página exiba um **script** dele para outros usuários, por exemplo em um comentário. O script roda no navegador da vítima e pode roubar dados da sessão. A defesa é **escapar** toda saída e nunca inserir HTML vindo do usuário sem tratamento. Por isso o FatecLab exibe as lições como texto formatado, sem interpretar HTML.\n\n## Quebra de controle de acesso\n\nÉ o primeiro da lista atual: o sistema não verifica se o usuário pode fazer aquilo. Exemplos: um aluno chamar diretamente a rota `/api/admin/trilhas`, ou trocar o ID na URL para ver dados de outro aluno. A regra de ouro: **toda autorização é verificada no servidor**. Esconder um botão na interface não protege nada.",
+          "questoes": [
+            {
+              "id": 79,
+              "ordem": 1,
+              "enunciado": "Qual é a principal defesa contra injeção de SQL?",
+              "explicacao": "Com parâmetros, a entrada nunca é interpretada como parte do comando SQL. As outras medidas ajudam, mas não resolvem a causa.",
+              "alternativas": [
+                {
+                  "id": 313,
+                  "ordem": 1,
+                  "texto": "Limitar o tamanho dos campos no formulário",
+                  "correta": false
+                },
+                {
+                  "id": 314,
+                  "ordem": 2,
+                  "texto": "Esconder as mensagens de erro do banco",
+                  "correta": false
+                },
+                {
+                  "id": 315,
+                  "ordem": 3,
+                  "texto": "Usar HTTPS",
+                  "correta": false
+                },
+                {
+                  "id": 316,
+                  "ordem": 4,
+                  "texto": "Usar consultas parametrizadas (prepared statements)",
+                  "correta": true
+                }
+              ]
+            },
+            {
+              "id": 80,
+              "ordem": 2,
+              "enunciado": "Um comentário contendo <script> passa a ser executado no navegador de quem abre a página. Que ataque é esse?",
+              "explicacao": "No XSS, o código do atacante é injetado na página e executado no navegador das vítimas.",
+              "alternativas": [
+                {
+                  "id": 317,
+                  "ordem": 1,
+                  "texto": "Phishing",
+                  "correta": false
+                },
+                {
+                  "id": 318,
+                  "ordem": 2,
+                  "texto": "Cross-site scripting (XSS)",
+                  "correta": true
+                },
+                {
+                  "id": 319,
+                  "ordem": 3,
+                  "texto": "Injeção de SQL",
+                  "correta": false
+                },
+                {
+                  "id": 320,
+                  "ordem": 4,
+                  "texto": "Negação de serviço",
+                  "correta": false
+                }
+              ]
+            },
+            {
+              "id": 81,
+              "ordem": 3,
+              "enunciado": "Um aluno descobre que, chamando a API diretamente, consegue apagar trilhas. Qual a correção adequada?",
+              "explicacao": "Controle de acesso precisa ser feito no back-end. Esconder ou ofuscar a rota não impede a chamada.",
+              "alternativas": [
+                {
+                  "id": 321,
+                  "ordem": 1,
+                  "texto": "Esconder o botão de excluir na interface",
+                  "correta": false
+                },
+                {
+                  "id": 322,
+                  "ordem": 2,
+                  "texto": "Trocar a URL da rota por um nome difícil de adivinhar",
+                  "correta": false
+                },
+                {
+                  "id": 323,
+                  "ordem": 3,
+                  "texto": "Pedir que os alunos não usem a API",
+                  "correta": false
+                },
+                {
+                  "id": 324,
+                  "ordem": 4,
+                  "texto": "Verificar no servidor se o usuário tem papel de administrador",
+                  "correta": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 28,
+          "ordem": 4,
+          "titulo": "Criptografia e HTTPS",
+          "xpConcedido": 35,
+          "conteudo": "**Criptografia** transforma dados legíveis em um formato que só quem tem a chave consegue ler.\n\n## Simétrica\n\nUsa a **mesma chave** para cifrar e decifrar (ex.: AES). É rápida, mas tem um problema: como enviar a chave ao outro lado com segurança?\n\n## Assimétrica\n\nUsa um **par de chaves**: a **pública**, que pode ser distribuída, e a **privada**, que fica só com o dono (ex.: RSA, curvas elípticas).\n\n- O que é cifrado com a chave pública só é decifrado com a privada: serve para **sigilo**\n- O que é assinado com a chave privada é verificado com a pública: serve para **assinatura digital**, provando autoria e integridade\n\n## Como o HTTPS usa as duas\n\nO HTTPS é o HTTP protegido pelo protocolo **TLS**. Na conexão:\n\n- o servidor apresenta um **certificado digital**, emitido por uma autoridade certificadora, que comprova que ele é mesmo quem diz ser\n- a criptografia assimétrica é usada para combinar, com segurança, uma chave de sessão\n- o restante da conversa usa criptografia **simétrica**, que é mais rápida\n\n## Hash não é criptografia\n\nHash é de mão única e não tem chave para \"decifrar\". Ele serve para verificar integridade e guardar senhas. Já o **JWT** usado no FatecLab é **assinado**, não cifrado: qualquer um consegue ler o conteúdo, mas ninguém consegue alterá-lo sem invalidar a assinatura. Por isso ele não deve carregar dados sigilosos.",
+          "questoes": [
+            {
+              "id": 82,
+              "ordem": 1,
+              "enunciado": "Na criptografia assimétrica, para enviar uma mensagem sigilosa a Ana, com qual chave você deve cifrá-la?",
+              "explicacao": "Só a chave privada de Ana decifra o que foi cifrado com a pública dela. A privada nunca é compartilhada.",
+              "alternativas": [
+                {
+                  "id": 325,
+                  "ordem": 1,
+                  "texto": "A chave pública de Ana",
+                  "correta": true
+                },
+                {
+                  "id": 326,
+                  "ordem": 2,
+                  "texto": "A chave privada de Ana",
+                  "correta": false
+                },
+                {
+                  "id": 327,
+                  "ordem": 3,
+                  "texto": "Sua chave privada",
+                  "correta": false
+                },
+                {
+                  "id": 328,
+                  "ordem": 4,
+                  "texto": "Sua chave pública",
+                  "correta": false
+                }
+              ]
+            },
+            {
+              "id": 83,
+              "ordem": 2,
+              "enunciado": "Para que serve o certificado digital apresentado em uma conexão HTTPS?",
+              "explicacao": "O certificado, emitido por uma autoridade certificadora, garante que você está falando com o servidor legítimo.",
+              "alternativas": [
+                {
+                  "id": 329,
+                  "ordem": 1,
+                  "texto": "Comprovar a identidade do servidor",
+                  "correta": true
+                },
+                {
+                  "id": 330,
+                  "ordem": 2,
+                  "texto": "Substituir a criptografia simétrica",
+                  "correta": false
+                },
+                {
+                  "id": 331,
+                  "ordem": 3,
+                  "texto": "Armazenar a senha do usuário",
+                  "correta": false
+                },
+                {
+                  "id": 332,
+                  "ordem": 4,
+                  "texto": "Acelerar o carregamento da página",
+                  "correta": false
+                }
+              ]
+            },
+            {
+              "id": 84,
+              "ordem": 3,
+              "enunciado": "Sobre um JWT assinado, é correto afirmar:",
+              "explicacao": "A assinatura garante integridade, não sigilo. Por isso o token não deve carregar dados confidenciais e deve trafegar sempre por HTTPS.",
+              "alternativas": [
+                {
+                  "id": 333,
+                  "ordem": 1,
+                  "texto": "Ele pode ser alterado livremente pelo cliente",
+                  "correta": false
+                },
+                {
+                  "id": 334,
+                  "ordem": 2,
+                  "texto": "Seu conteúdo é sigiloso e ninguém consegue lê-lo",
+                  "correta": false
+                },
+                {
+                  "id": 335,
+                  "ordem": 3,
+                  "texto": "Seu conteúdo pode ser lido, mas não alterado sem invalidar a assinatura",
+                  "correta": true
+                },
+                {
+                  "id": 336,
+                  "ordem": 4,
+                  "texto": "Ele substitui o uso de HTTPS",
+                  "correta": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ],
   "usuarios": [

@@ -28,11 +28,11 @@
 }
 
 .trilha-acesa path {
-  stroke: var(--ciano);
+  stroke: var(--amarelo);
 }
 
 .trilha-acesa circle {
-  fill: var(--ciano);
+  fill: var(--amarelo);
 }
 
 .mapa-circuito-nos {
@@ -63,8 +63,8 @@
 }
 
 .no-concluido .no-modulo-botao {
-  background: var(--ciano);
-  border-color: var(--ciano);
+  background: var(--amarelo);
+  border-color: var(--amarelo);
   color: var(--noite);
 }
 
@@ -72,11 +72,11 @@
   width: 68px;
   height: 68px;
   margin: -4px;
-  border-color: var(--ciano);
+  border-color: var(--amarelo);
   border-width: 3px;
-  color: var(--ciano);
+  color: var(--amarelo);
   background: var(--superficie-alta);
-  box-shadow: 0 0 0 6px rgba(77, 225, 240, 0.12), 0 0 24px rgba(77, 225, 240, 0.25);
+  box-shadow: 0 0 0 6px rgba(245, 220, 58, 0.12), 0 0 24px rgba(245, 220, 58, 0.25);
 }
 
 /* O único movimento automático da tela: chama atenção para o próximo passo. */
@@ -85,7 +85,7 @@
   position: absolute;
   inset: -9px;
   border-radius: 50%;
-  border: 2px solid var(--ciano);
+  border: 2px solid var(--amarelo);
   opacity: 0;
   animation: pulso 2.2s ease-out infinite;
 }
@@ -136,7 +136,7 @@
 }
 
 .no-atual .no-modulo-ordem {
-  color: var(--ciano);
+  color: var(--amarelo);
   font-weight: 500;
 }
 

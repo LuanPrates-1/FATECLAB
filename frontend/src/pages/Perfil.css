@@ -154,8 +154,8 @@
 }
 
 .conquista.desbloqueada .conquista-icone {
-  color: var(--ciano);
-  background: rgba(77, 225, 240, 0.1);
+  color: var(--roxo);
+  background: rgba(177, 132, 255, 0.14);
 }
 
 .conquista.desbloqueada .conquista-titulo {

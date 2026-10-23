@@ -7,7 +7,7 @@
   gap: 72px;
   padding: 32px;
   background-color: var(--noite-funda);
-  background-image: radial-gradient(rgba(169, 166, 212, 0.13) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(200, 190, 230, 0.1) 1px, transparent 1px);
   background-size: 22px 22px;
 }
 
@@ -53,8 +53,8 @@
   align-items: flex-start;
   gap: 10px;
   padding: 14px 16px;
-  border-left: 2px solid var(--ciano);
-  background: rgba(77, 225, 240, 0.06);
+  border-left: 2px solid var(--amarelo);
+  background: rgba(245, 220, 58, 0.06);
   font-size: var(--t-sm);
   color: var(--texto-suave);
 }
@@ -73,12 +73,12 @@
   height: min(860px, calc(100vh - 64px));
   padding: 12px;
   border-radius: 52px;
-  background: #07061a;
+  background: #050407;
   box-shadow:
-    0 0 0 1px #2c2856,
-    0 0 0 3px #0b0920,
-    0 30px 80px rgba(0, 0, 0, 0.55),
-    0 0 120px rgba(77, 225, 240, 0.07);
+    0 0 0 1px #2e2840,
+    0 0 0 3px #0a0910,
+    0 30px 80px rgba(0, 0, 0, 0.6),
+    0 0 140px rgba(177, 132, 255, 0.12);
 }
 
 .aparelho-tela {
@@ -108,7 +108,7 @@
   width: 96px;
   height: 26px;
   border-radius: 20px;
-  background: #07061a;
+  background: #050407;
 }
 
 .barra-status-icones {

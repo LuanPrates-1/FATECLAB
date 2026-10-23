@@ -1,24 +1,28 @@
 /* FatecLab: sistema visual
-   Fundo índigo-noturno; três acentos com significado fixo:
-   ciano = ação e progresso, âmbar = XP, magenta = ofensiva (dias seguidos). */
+   Preto com toques de roxo e amarelo, no espírito cyberpunk, mas contido.
+   Amarelo = ações, progresso e XP. Roxo = identidade do aluno (nível, ofensiva, conquistas). */
 
 :root {
-  --noite: #15122e;
-  --noite-funda: #0f0c24;
-  --superficie: #1f1b40;
-  --superficie-alta: #29244f;
-  --linha: #322d5e;
-  --linha-forte: #4a4482;
+  /* Base preta com leve tom roxo */
+  --noite: #0c0b10;
+  --noite-funda: #070609;
+  --superficie: #16141c;
+  --superficie-alta: #201d29;
+  --linha: #2c2836;
+  --linha-forte: #433d52;
 
-  --texto: #ecebff;
-  --texto-suave: #a9a6d4;
-  --texto-apagado: #77739f;
+  --texto: #f1eef6;
+  --texto-suave: #b0aabf;
+  --texto-apagado: #7b748c;
 
-  --ciano: #4de1f0;
-  --ciano-escuro: #1b8f9c;
-  --ciano-brilho: rgba(77, 225, 240, 0.35);
-  --ambar: #ffc857;
-  --magenta: #ff4fb0;
+  /* Amarelo: o que o aluno faz e ganha (ações, progresso e XP) */
+  --amarelo: #f5dc3a;
+  --amarelo-escuro: #8c7a12;
+  --amarelo-brilho: rgba(245, 220, 58, 0.35);
+  --xp: var(--amarelo);
+  /* Roxo: quem o aluno é (nível, ofensiva, destaque pessoal, conquistas) */
+  --roxo: #b184ff;
+  --roxo-escuro: #5b3a99;
   --sucesso: #5ee6a5;
   --erro: #ff6b81;
 
@@ -82,7 +86,7 @@ p {
 }
 
 a {
-  color: var(--ciano);
+  color: var(--amarelo);
 }
 
 button,
@@ -94,12 +98,12 @@ textarea {
 }
 
 :focus-visible {
-  outline: 2px solid var(--ciano);
+  outline: 2px solid var(--amarelo);
   outline-offset: 2px;
 }
 
 ::selection {
-  background: var(--ciano);
+  background: var(--amarelo);
   color: var(--noite);
 }
 
@@ -138,7 +142,7 @@ textarea {
 }
 
 .botao:hover:not(:disabled) {
-  border-color: var(--ciano-escuro);
+  border-color: var(--amarelo-escuro);
 }
 
 .botao:active:not(:disabled) {
@@ -154,7 +158,7 @@ textarea {
 .botao-principal {
   border: 0;
   border-radius: 0;
-  background: var(--ciano);
+  background: var(--amarelo);
   color: var(--noite);
   clip-path: polygon(
     var(--chanfro) 0,
@@ -170,7 +174,7 @@ textarea {
 }
 
 .botao-principal:hover:not(:disabled) {
-  background: #7ceaf5;
+  background: #fbe97a;
 }
 
 .botao-fantasma {
@@ -237,8 +241,8 @@ textarea {
 .campo select:focus,
 .campo textarea:focus {
   outline: none;
-  border-color: var(--ciano);
-  box-shadow: 0 0 0 3px rgba(77, 225, 240, 0.15);
+  border-color: var(--amarelo);
+  box-shadow: 0 0 0 3px rgba(245, 220, 58, 0.15);
 }
 
 .campo .ajuda {
@@ -267,13 +271,13 @@ textarea {
 /* ---------- Utilidades de valores com significado ---------- */
 
 .valor-xp {
-  color: var(--ambar);
+  color: var(--xp);
   font-family: var(--fonte-titulo);
   font-weight: 600;
 }
 
 .valor-ofensiva {
-  color: var(--magenta);
+  color: var(--roxo);
   font-family: var(--fonte-titulo);
   font-weight: 600;
 }
@@ -290,12 +294,12 @@ textarea {
   position: absolute;
   inset: 0 auto 0 0;
   border-radius: inherit;
-  background: var(--ciano);
+  background: var(--amarelo);
   transition: width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .barra-xp > span {
-  background: var(--ambar);
+  background: var(--xp);
 }
 
 .estado-vazio {

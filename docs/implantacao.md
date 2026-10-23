@@ -16,7 +16,7 @@ npm install
 npm run dev:demo        # abre em http://localhost:5173
 ```
 
-A API é simulada no navegador com as mesmas regras do back-end e as 7 trilhas de exemplo. O
+A API é simulada no navegador com as mesmas regras do back-end e as 8 trilhas de exemplo. O
 progresso fica salvo só naquele navegador; o botão "Reiniciar demonstração", ao lado da moldura do
 celular, volta tudo ao estado inicial.
 

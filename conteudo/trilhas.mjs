@@ -7,6 +7,7 @@
 // Formato do conteúdo das lições (Markdown simplificado):
 //   ## Título      parágrafos     - item de lista     **negrito**     `código`     ```bloco```
 // Em cada questão, "correta" é o índice (a partir de 0) da alternativa certa.
+// "migracao: 2" (ou maior) gera um arquivo de migração novo, sem alterar os já aplicados no banco.
 
 export const trilhas = [
   {
@@ -1432,6 +1433,239 @@ Frameworks como o **React**, usado no FatecLab, atualizam o DOM automaticamente 
             alternativas: ["var", "let", "const", "static"],
             correta: 2,
             explicacao: "const impede a reatribuição e deixa a intenção explícita.",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    // Adicionada depois do primeiro lote: vai para a migração V4_2 (não altera a V4_1 já aplicada).
+    migracao: 2,
+    titulo: "Cibersegurança",
+    area: "Segurança",
+    nivel: "INTERMEDIARIO",
+    descricao:
+      "Os pilares da segurança da informação, senhas e autenticação, ataques comuns em aplicações web e criptografia na prática.",
+    modulos: [
+      {
+        titulo: "Fundamentos da segurança da informação",
+        xp: 30,
+        conteudo: `A segurança da informação protege dados e sistemas contra acesso, alteração e indisponibilidade indevidos. Ela se apoia em três pilares, conhecidos como **tríade CID**:
+
+- **Confidencialidade**: só quem tem permissão acessa a informação (ex.: suas notas no sistema acadêmico)
+- **Integridade**: a informação não é alterada de forma indevida (ex.: ninguém muda sua nota no caminho)
+- **Disponibilidade**: a informação está acessível quando necessária (ex.: o sistema não cai na semana de provas)
+
+## Ameaça, vulnerabilidade e risco
+
+- **Vulnerabilidade**: uma fraqueza, como um sistema desatualizado ou uma senha fraca
+- **Ameaça**: algo ou alguém que pode explorar a vulnerabilidade, como um atacante ou um malware
+- **Risco**: a chance de a ameaça explorar a vulnerabilidade, combinada com o impacto que isso causaria
+
+Reduzir o risco é o objetivo: corrigir vulnerabilidades, dificultar ameaças e diminuir o impacto (backups, por exemplo).
+
+## Defesa em profundidade
+
+Nenhuma proteção é perfeita, então se usam **várias camadas**: firewall, atualização de sistemas, controle de acesso, criptografia, monitoramento e conscientização dos usuários. Se uma camada falha, as outras continuam protegendo.
+
+## Engenharia social
+
+Muitos ataques exploram pessoas, não máquinas. O **phishing** é uma mensagem falsa, que imita um banco ou a própria faculdade, para fazer a vítima clicar em um link ou entregar a senha. Desconfie de urgência, confira o remetente e o endereço do site antes de digitar dados.`,
+        questoes: [
+          {
+            enunciado: "Um invasor altera o valor de uma transferência enquanto ela trafega pela rede. Qual pilar da segurança foi violado?",
+            alternativas: ["Confidencialidade", "Integridade", "Disponibilidade", "Autenticidade do usuário"],
+            correta: 1,
+            explicacao: "A informação foi modificada de forma indevida: isso fere a integridade.",
+          },
+          {
+            enunciado: "Um servidor sem atualizações de segurança há dois anos é um exemplo de:",
+            alternativas: ["Ameaça", "Risco", "Vulnerabilidade", "Incidente"],
+            correta: 2,
+            explicacao: "É uma fraqueza que pode ser explorada. A ameaça seria o atacante que a explora.",
+          },
+          {
+            enunciado: "Um e-mail com o logotipo da Fatec pede, com urgência, que você confirme sua senha em um link. Isso é provavelmente:",
+            alternativas: ["Um aviso oficial de rotina", "Phishing", "Uma atualização automática", "Um teste de disponibilidade"],
+            correta: 1,
+            explicacao: "Urgência e pedido de senha por link são sinais clássicos de phishing. Instituições não pedem sua senha por e-mail.",
+          },
+        ],
+      },
+      {
+        titulo: "Senhas e autenticação",
+        xp: 30,
+        conteudo: `**Autenticação** é provar quem você é; **autorização** é definir o que você pode fazer depois de autenticado. No FatecLab, o login autentica, e o papel de administrador autoriza o acesso ao painel.
+
+## Como guardar senhas
+
+Um sistema **nunca** deve guardar a senha em texto puro. Ele guarda um **hash**: o resultado de uma função de mão única, que não pode ser revertida.
+
+- **Salt**: um valor aleatório somado à senha antes do hash. Assim, duas pessoas com a mesma senha têm hashes diferentes, e tabelas prontas de hashes (rainbow tables) deixam de funcionar
+- Use algoritmos **lentos de propósito**, feitos para senhas, como **bcrypt** ou Argon2. MD5 e SHA-1 são rápidos demais e permitem testar bilhões de tentativas
+
+\`\`\`
+senha "fatec2026" + salt  ->  bcrypt  ->  $2a$10$N9qo8uLOickgx2ZMRZoMye...
+\`\`\`
+
+## Senhas fortes
+
+Comprimento vale mais que complexidade: uma frase longa como \`cafe-com-pao-na-fatec\` é mais forte e mais fácil de lembrar que \`F@t3c!\`. Não repita senhas entre serviços e use um gerenciador de senhas.
+
+## Autenticação multifator (MFA)
+
+Combina fatores de tipos diferentes:
+
+- algo que você **sabe** (senha)
+- algo que você **tem** (celular com aplicativo autenticador)
+- algo que você **é** (biometria)
+
+Com MFA, uma senha vazada sozinha não basta para invadir a conta.`,
+        questoes: [
+          {
+            enunciado: "Qual é a forma correta de um sistema armazenar as senhas dos usuários?",
+            alternativas: [
+              "Em texto puro, em uma tabela protegida",
+              "Criptografadas com uma chave guardada no próprio servidor",
+              "Como hash com salt, usando um algoritmo como bcrypt",
+              "Codificadas em Base64",
+            ],
+            correta: 2,
+            explicacao: "Hash com salt em algoritmo lento impede recuperar a senha e dificulta ataques de força bruta. Base64 é só codificação e se reverte facilmente.",
+          },
+          {
+            enunciado: "Para que serve o salt no armazenamento de senhas?",
+            alternativas: [
+              "Deixar o hash mais curto",
+              "Fazer senhas iguais gerarem hashes diferentes e inutilizar tabelas prontas de hashes",
+              "Permitir recuperar a senha original",
+              "Substituir a autenticação multifator",
+            ],
+            correta: 1,
+            explicacao: "Com um salt aleatório por usuário, o mesmo texto gera hashes distintos e as rainbow tables deixam de servir.",
+          },
+          {
+            enunciado: "Senha e código do aplicativo autenticador no celular combinam quais fatores?",
+            alternativas: [
+              "Algo que você sabe e algo que você tem",
+              "Algo que você é e algo que você sabe",
+              "Dois fatores do mesmo tipo",
+              "Algo que você tem e algo que você é",
+            ],
+            correta: 0,
+            explicacao: "A senha é conhecimento (sabe); o celular é posse (tem). Por serem de tipos diferentes, formam uma MFA de verdade.",
+          },
+        ],
+      },
+      {
+        titulo: "Ataques comuns em aplicações web",
+        xp: 35,
+        conteudo: `O **OWASP Top 10** é a lista de referência dos riscos mais críticos em aplicações web. Três deles aparecem o tempo todo:
+
+## Injeção de SQL
+
+Acontece quando a entrada do usuário é **concatenada** direto na consulta:
+
+\`\`\`
+"SELECT * FROM usuario WHERE email = '" + email + "'"
+-- email digitado: ' OR '1'='1
+\`\`\`
+
+A consulta passa a retornar todos os usuários. A defesa é usar **consultas parametrizadas** (prepared statements), em que o banco trata a entrada como dado, nunca como comando. O Spring Data JPA, usado no FatecLab, faz isso por padrão.
+
+## Cross-site scripting (XSS)
+
+O atacante consegue que a página exiba um **script** dele para outros usuários, por exemplo em um comentário. O script roda no navegador da vítima e pode roubar dados da sessão. A defesa é **escapar** toda saída e nunca inserir HTML vindo do usuário sem tratamento. Por isso o FatecLab exibe as lições como texto formatado, sem interpretar HTML.
+
+## Quebra de controle de acesso
+
+É o primeiro da lista atual: o sistema não verifica se o usuário pode fazer aquilo. Exemplos: um aluno chamar diretamente a rota \`/api/admin/trilhas\`, ou trocar o ID na URL para ver dados de outro aluno. A regra de ouro: **toda autorização é verificada no servidor**. Esconder um botão na interface não protege nada.`,
+        questoes: [
+          {
+            enunciado: "Qual é a principal defesa contra injeção de SQL?",
+            alternativas: [
+              "Esconder as mensagens de erro do banco",
+              "Usar consultas parametrizadas (prepared statements)",
+              "Limitar o tamanho dos campos no formulário",
+              "Usar HTTPS",
+            ],
+            correta: 1,
+            explicacao: "Com parâmetros, a entrada nunca é interpretada como parte do comando SQL. As outras medidas ajudam, mas não resolvem a causa.",
+          },
+          {
+            enunciado: "Um comentário contendo <script> passa a ser executado no navegador de quem abre a página. Que ataque é esse?",
+            alternativas: ["Injeção de SQL", "Phishing", "Cross-site scripting (XSS)", "Negação de serviço"],
+            correta: 2,
+            explicacao: "No XSS, o código do atacante é injetado na página e executado no navegador das vítimas.",
+          },
+          {
+            enunciado: "Um aluno descobre que, chamando a API diretamente, consegue apagar trilhas. Qual a correção adequada?",
+            alternativas: [
+              "Esconder o botão de excluir na interface",
+              "Trocar a URL da rota por um nome difícil de adivinhar",
+              "Verificar no servidor se o usuário tem papel de administrador",
+              "Pedir que os alunos não usem a API",
+            ],
+            correta: 2,
+            explicacao: "Controle de acesso precisa ser feito no back-end. Esconder ou ofuscar a rota não impede a chamada.",
+          },
+        ],
+      },
+      {
+        titulo: "Criptografia e HTTPS",
+        xp: 35,
+        conteudo: `**Criptografia** transforma dados legíveis em um formato que só quem tem a chave consegue ler.
+
+## Simétrica
+
+Usa a **mesma chave** para cifrar e decifrar (ex.: AES). É rápida, mas tem um problema: como enviar a chave ao outro lado com segurança?
+
+## Assimétrica
+
+Usa um **par de chaves**: a **pública**, que pode ser distribuída, e a **privada**, que fica só com o dono (ex.: RSA, curvas elípticas).
+
+- O que é cifrado com a chave pública só é decifrado com a privada: serve para **sigilo**
+- O que é assinado com a chave privada é verificado com a pública: serve para **assinatura digital**, provando autoria e integridade
+
+## Como o HTTPS usa as duas
+
+O HTTPS é o HTTP protegido pelo protocolo **TLS**. Na conexão:
+
+- o servidor apresenta um **certificado digital**, emitido por uma autoridade certificadora, que comprova que ele é mesmo quem diz ser
+- a criptografia assimétrica é usada para combinar, com segurança, uma chave de sessão
+- o restante da conversa usa criptografia **simétrica**, que é mais rápida
+
+## Hash não é criptografia
+
+Hash é de mão única e não tem chave para "decifrar". Ele serve para verificar integridade e guardar senhas. Já o **JWT** usado no FatecLab é **assinado**, não cifrado: qualquer um consegue ler o conteúdo, mas ninguém consegue alterá-lo sem invalidar a assinatura. Por isso ele não deve carregar dados sigilosos.`,
+        questoes: [
+          {
+            enunciado: "Na criptografia assimétrica, para enviar uma mensagem sigilosa a Ana, com qual chave você deve cifrá-la?",
+            alternativas: ["Sua chave privada", "Sua chave pública", "A chave pública de Ana", "A chave privada de Ana"],
+            correta: 2,
+            explicacao: "Só a chave privada de Ana decifra o que foi cifrado com a pública dela. A privada nunca é compartilhada.",
+          },
+          {
+            enunciado: "Para que serve o certificado digital apresentado em uma conexão HTTPS?",
+            alternativas: [
+              "Acelerar o carregamento da página",
+              "Comprovar a identidade do servidor",
+              "Armazenar a senha do usuário",
+              "Substituir a criptografia simétrica",
+            ],
+            correta: 1,
+            explicacao: "O certificado, emitido por uma autoridade certificadora, garante que você está falando com o servidor legítimo.",
+          },
+          {
+            enunciado: "Sobre um JWT assinado, é correto afirmar:",
+            alternativas: [
+              "Seu conteúdo é sigiloso e ninguém consegue lê-lo",
+              "Seu conteúdo pode ser lido, mas não alterado sem invalidar a assinatura",
+              "Ele pode ser alterado livremente pelo cliente",
+              "Ele substitui o uso de HTTPS",
+            ],
+            correta: 1,
+            explicacao: "A assinatura garante integridade, não sigilo. Por isso o token não deve carregar dados confidenciais e deve trafegar sempre por HTTPS.",
           },
         ],
       },

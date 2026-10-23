@@ -57,7 +57,7 @@ export function MapaCircuito({ modulos, estadoDe, aoAbrir }: Props) {
     <div className="mapa-circuito" ref={ref} style={{ height: altura }}>
       <svg className="mapa-circuito-trilhas" width={largura} height={altura} aria-hidden="true">
         <defs>
-          <filter id="brilho-ciano" x="-50%" y="-50%" width="200%" height="200%">
+          <filter id="brilho-amarelo" x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur stdDeviation="3" result="desfoque" />
             <feMerge>
               <feMergeNode in="desfoque" />
@@ -67,7 +67,7 @@ export function MapaCircuito({ modulos, estadoDe, aoAbrir }: Props) {
         </defs>
         {segmentos.map((s, i) => (
           <g key={i} className={s.aceso ? "trilha-acesa" : "trilha-apagada"}>
-            <path d={s.caminho} filter={s.aceso ? "url(#brilho-ciano)" : undefined} />
+            <path d={s.caminho} filter={s.aceso ? "url(#brilho-amarelo)" : undefined} />
             <circle cx={s.dobra1.x} cy={s.dobra1.y} r={3.5} />
             <circle cx={s.dobra2.x} cy={s.dobra2.y} r={3.5} />
           </g>

@@ -49,7 +49,7 @@
 
 .licao-contexto {
   font-size: var(--t-sm);
-  color: var(--ciano);
+  color: var(--amarelo);
   font-weight: 500;
 }
 
@@ -137,13 +137,13 @@
 }
 
 .alternativa.marcada {
-  border-color: var(--ciano);
-  background: rgba(77, 225, 240, 0.07);
+  border-color: var(--amarelo);
+  background: rgba(245, 220, 58, 0.07);
 }
 
 .alternativa.marcada .alternativa-letra {
-  border-color: var(--ciano);
-  color: var(--ciano);
+  border-color: var(--amarelo);
+  color: var(--amarelo);
 }
 
 .alternativa.correta {
@@ -169,12 +169,12 @@
 }
 
 .rodape-certo {
-  background: #123a3a;
+  background: #0f231a;
   border-top-color: rgba(94, 230, 165, 0.4);
 }
 
 .rodape-errado {
-  background: #3a1630;
+  background: #2a0f18;
   border-top-color: rgba(255, 107, 129, 0.4);
 }
 
@@ -217,9 +217,9 @@
 }
 
 .resultado-selo.aprovado {
-  border-color: var(--ciano);
-  color: var(--ciano);
-  box-shadow: 0 0 40px rgba(77, 225, 240, 0.25);
+  border-color: var(--amarelo);
+  color: var(--amarelo);
+  box-shadow: 0 0 40px rgba(245, 220, 58, 0.25);
 }
 
 .resultado-placar {
@@ -245,7 +245,7 @@
   font-size: 3.25rem;
   font-weight: 700;
   line-height: 1;
-  color: var(--ambar);
+  color: var(--xp);
   font-variant-numeric: tabular-nums;
 }
 
@@ -257,8 +257,8 @@
 .resultado-nivel {
   padding: 6px 14px;
   border-radius: 99px;
-  border: 1px solid rgba(255, 200, 87, 0.5);
-  color: var(--ambar);
+  border: 1px solid rgba(245, 220, 58, 0.5);
+  color: var(--xp);
   font-weight: 600;
 }
 
@@ -266,7 +266,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  color: var(--magenta);
+  color: var(--roxo);
   font-weight: 500;
 }
 

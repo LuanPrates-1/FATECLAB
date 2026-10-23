@@ -11,8 +11,8 @@
 }
 
 .avatar-destaque {
-  border-color: var(--ciano);
-  box-shadow: 0 0 0 3px rgba(77, 225, 240, 0.15);
+  border-color: var(--roxo);
+  box-shadow: 0 0 0 3px rgba(177, 132, 255, 0.18);
 }
 
 /* Lições */
@@ -22,7 +22,7 @@
   gap: 14px;
   font-size: var(--t-base);
   line-height: 1.65;
-  color: #dcdaf7;
+  color: #dedae8;
 }
 
 .md h3 {
@@ -39,7 +39,7 @@
 }
 
 .md li::marker {
-  color: var(--ciano);
+  color: var(--amarelo);
 }
 
 .md strong {
@@ -54,7 +54,7 @@
   border: 1px solid var(--linha);
   font-family: "JetBrains Mono", "Cascadia Code", Consolas, monospace;
   font-size: 0.88em;
-  color: #c8f6fb;
+  color: #e3d4ff;
 }
 
 .md-codigo {
@@ -63,12 +63,12 @@
   border-radius: var(--raio-pequeno);
   background: var(--noite-funda);
   border: 1px solid var(--linha);
-  border-left: 2px solid var(--ciano-escuro);
+  border-left: 2px solid var(--roxo);
   overflow-x: auto;
   font-family: "JetBrains Mono", "Cascadia Code", Consolas, monospace;
   font-size: var(--t-sm);
   line-height: 1.55;
-  color: #c8f6fb;
+  color: #e3d4ff;
 }
 
 .md-codigo code {

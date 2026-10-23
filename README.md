@@ -46,7 +46,11 @@ MySQL 8 + Flyway · Vitest e JUnit.
 
 ## Conteúdo de demonstração
 
-As 7 trilhas de exemplo (Lógica, SQL, Java OO, Requisitos e UML, Estruturas de Dados, Redes e
-Desenvolvimento Web), com 24 módulos e 72 questões, ficam em `conteudo/trilhas.mjs`. Depois de
-editar esse arquivo, rode `npm run gerar:dados` na pasta `frontend` para atualizar o SQL do banco e
-os dados do modo demonstração.
+As 8 trilhas de exemplo (Lógica, SQL, Java OO, Requisitos e UML, Estruturas de Dados, Redes,
+Desenvolvimento Web e Cibersegurança), com 28 módulos e 84 questões, ficam em `conteudo/trilhas.mjs`.
+Depois de editar esse arquivo, rode `npm run gerar:dados` na pasta `frontend` para atualizar o SQL do
+banco e os dados do modo demonstração.
+
+Para incluir trilhas novas num banco que já recebeu os dados de demonstração, marque-as com
+`migracao: 3` (ou o próximo número). O gerador cria uma migração nova (`V4_3__...sql`) e nunca
+reescreve as que já existem, o que evita erro de checksum no Flyway.

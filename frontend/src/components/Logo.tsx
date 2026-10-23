@@ -5,14 +5,14 @@ export function MarcaFatecLab({ tamanho = 28 }: { tamanho?: number }) {
       <path
         d="M8 2h18l4 4v18l-6 6H6l-4-4V8z"
         fill="none"
-        stroke="var(--ciano)"
+        stroke="var(--amarelo)"
         strokeWidth="2.2"
         strokeLinejoin="round"
       />
-      <path d="M9 22v-6l5-5h9" fill="none" stroke="var(--ciano)" strokeWidth="2.2" strokeLinecap="round" />
-      <circle cx="9" cy="23" r="2.4" fill="var(--ciano)" />
-      <circle cx="23.5" cy="11" r="2.4" fill="var(--ciano)" />
-      <circle cx="19" cy="21" r="2.4" fill="none" stroke="var(--ciano)" strokeWidth="2" />
+      <path d="M9 22v-6l5-5h9" fill="none" stroke="var(--amarelo)" strokeWidth="2.2" strokeLinecap="round" />
+      <circle cx="9" cy="23" r="2.4" fill="var(--amarelo)" />
+      <circle cx="23.5" cy="11" r="2.4" fill="var(--amarelo)" />
+      <circle cx="19" cy="21" r="2.4" fill="none" stroke="var(--amarelo)" strokeWidth="2" />
     </svg>
   );
 }
