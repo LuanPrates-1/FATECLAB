@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: fateclab
+  datasource:
+    url: jdbc:mysql://localhost:3306/fateclab?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: root
+    password: fateclab
+  jpa:
+    hibernate:
+      # Schema é controlado pelo Flyway (research.md §5); Hibernate nunca gera/altera DDL.
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+server:
+  port: 8080
+
+# Domínio(s) de e-mail institucional aceitos no cadastro de aluno (FR-017, research.md §7).
+# Configurável para não exigir alteração de código caso o domínio institucional mude.
+fateclab:
+  auth:
+    dominios-institucionais: fatec.sp.gov.br
+    # Segredo usado para assinar os JWTs (research.md §4). Em produção/homologação DEVE vir de
+    # uma variável de ambiente (FATECLAB_JWT_SECRET), nunca commitado em texto plano.
+    jwt-secret: ${FATECLAB_JWT_SECRET:troque-este-segredo-apenas-em-desenvolvimento-local}
+    jwt-expiracao-minutos: 480
+
+logging:
+  level:
+    br.edu.fatec.fateclab: INFO
