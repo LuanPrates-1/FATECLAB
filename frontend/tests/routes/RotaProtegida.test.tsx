@@ -25,7 +25,7 @@ function renderComRota(caminhoInicial: string) {
 }
 
 describe("RotaProtegida", () => {
-  it("redireciona visitante não autenticado para /login (FR-004, US1 cenário 5)", () => {
+  it("redireciona visitante não autenticado para /login (RF04, US1 cenário 5)", () => {
     renderComRota("/trilhas");
 
     expect(screen.getByText("Tela de login")).toBeInTheDocument();

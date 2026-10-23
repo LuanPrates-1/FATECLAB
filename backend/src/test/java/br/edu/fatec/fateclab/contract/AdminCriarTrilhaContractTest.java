@@ -19,7 +19,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
-/** Contrato de POST /admin/trilhas: 201 sucesso (US4 cenário 1), 403 usuário não administrador (FR-015). */
+/** Contrato de POST /admin/trilhas: 201 sucesso (US4 cenário 1), 403 usuário não administrador (RF15). */
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")

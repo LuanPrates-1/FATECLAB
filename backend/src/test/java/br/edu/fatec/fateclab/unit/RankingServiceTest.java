@@ -14,7 +14,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-/** Testes unitários do critério de desempate e da posição/destaque do ranking (FR-011, FR-012). */
+/** Testes unitários do critério de desempate e da posição/destaque do ranking (RF11, RF12). */
 @ExtendWith(MockitoExtension.class)
 class RankingServiceTest {
 

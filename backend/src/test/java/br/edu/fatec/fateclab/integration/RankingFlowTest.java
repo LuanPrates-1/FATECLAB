@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * User Story 3, fluxo completo: dois alunos ganham XP concluindo módulos e o ranking reflete a
  * ordenação correta, exibindo o apelido padrão gerado automaticamente para quem ainda não
- * personalizou o seu (FR-018).
+ * personalizou o seu (RF18).
  */
 @SpringBootTest
 @AutoConfigureMockMvc

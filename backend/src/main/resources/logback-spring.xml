@@ -2,7 +2,7 @@
 <configuration>
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
 
-    <!-- Logging estruturado (constituição, Princípio V): nível, contexto e timestamp em toda
+    <!-- Logging estruturado (docs/arquitetura.md, "Observabilidade"): nível, contexto e timestamp em toda
          linha, para permitir diagnóstico rápido durante os períodos de testes/ajustes e beta. -->
     <property name="CONSOLE_LOG_PATTERN"
               value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %msg%n"/>

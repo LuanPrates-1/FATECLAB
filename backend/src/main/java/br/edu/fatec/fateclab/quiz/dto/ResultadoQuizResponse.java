@@ -5,7 +5,7 @@ import br.edu.fatec.fateclab.progresso.dto.ProgressoResponse;
 import java.util.List;
 
 /**
- * Resultado do quiz: aprovação (mínimo de 70% de acertos), XP ganho (com bônus de 20% por
+ * Resultado do quiz: aprovação (cerca de 70% de acertos), XP ganho (com bônus de 20% por
  * gabarito), correção questão a questão e o estado atualizado do aluno e da trilha.
  */
 public record ResultadoQuizResponse(

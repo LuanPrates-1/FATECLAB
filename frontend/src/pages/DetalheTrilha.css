@@ -1,0 +1,73 @@
+.link-voltar {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  margin-bottom: -8px;
+  font-size: var(--t-sm);
+  color: var(--texto-suave);
+  text-decoration: none;
+}
+
+.link-voltar:hover {
+  color: var(--texto);
+}
+
+.pagina-trilha {
+  gap: 20px;
+}
+
+.trilha-cabecalho {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.trilha-cabecalho .icone-area {
+  width: 52px;
+  height: 52px;
+}
+
+.trilha-area {
+  font-size: var(--t-sm);
+  color: var(--texto-suave);
+}
+
+.trilha-cabecalho h1 {
+  font-size: var(--t-xl);
+}
+
+.trilha-descricao {
+  color: var(--texto-suave);
+  font-size: var(--t-sm);
+}
+
+.trilha-progresso {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.trilha-progresso-numeros {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--t-sm);
+  color: var(--texto-suave);
+  font-variant-numeric: tabular-nums;
+}
+
+.trilha-concluida {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 14px 16px;
+  border-radius: var(--raio);
+  border: 1px solid rgba(94, 230, 165, 0.35);
+  background: rgba(94, 230, 165, 0.07);
+  font-size: var(--t-sm);
+}
+
+.trilha-concluida svg {
+  flex: none;
+  color: var(--sucesso);
+}

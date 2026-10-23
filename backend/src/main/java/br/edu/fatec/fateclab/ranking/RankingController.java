@@ -6,7 +6,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/** GET /ranking, per contracts/openapi.yaml. */
+/** GET /ranking, per docs/api.md. */
 @RestController
 public class RankingController {
 

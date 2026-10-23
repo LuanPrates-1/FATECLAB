@@ -17,7 +17,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
-/** Contrato de GET /alunos/me e PATCH /alunos/me (FR-018; achado C1 da análise). */
+/** Contrato de GET /alunos/me e PATCH /alunos/me (RF18; achado C1 da análise). */
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")

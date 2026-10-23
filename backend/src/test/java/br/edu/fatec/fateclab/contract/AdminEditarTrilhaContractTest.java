@@ -27,7 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Contrato de PUT /admin/trilhas/{trilhaId}: edição refletida imediatamente para os alunos
- * (FR-016), 403 usuário não administrador.
+ * (RF16), 403 usuário não administrador.
  */
 @SpringBootTest
 @AutoConfigureMockMvc

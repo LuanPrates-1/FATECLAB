@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/** POST /auth/cadastro e POST /auth/login, per contracts/openapi.yaml. */
+/** POST /auth/cadastro e POST /auth/login, per docs/api.md. */
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {

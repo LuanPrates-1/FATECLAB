@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * data-model.md "ProgressoModulo": registra quais módulos específicos um aluno já concluiu
+ * docs/modelo-de-dados.md, "ProgressoModulo": registra quais módulos específicos um aluno já concluiu
  * (par progressoAlunoId+moduloId único), suportando a regra de não pular etapas.
  */
 @Entity

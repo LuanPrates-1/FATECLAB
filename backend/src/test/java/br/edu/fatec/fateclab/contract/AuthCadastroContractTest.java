@@ -16,8 +16,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Contrato de POST /auth/cadastro (contracts/openapi.yaml): 201 sucesso, 409 e-mail duplicado
- * (FR-002), 422 e-mail fora do domínio institucional (FR-017).
+ * Contrato de POST /auth/cadastro (docs/api.md): 201 sucesso, 409 e-mail duplicado
+ * (RF02), 422 e-mail fora do domínio institucional (RF17).
  */
 @SpringBootTest
 @AutoConfigureMockMvc

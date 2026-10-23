@@ -1,19 +1,14 @@
 import { apiRequest } from "./apiClient";
+import type { Id, Progresso } from "./tipos";
 
-export type StatusProgresso = "NAO_INICIADA" | "EM_ANDAMENTO" | "CONCLUIDA";
+export type { Progresso, StatusProgresso } from "./tipos";
 
-export interface Progresso {
-  trilhaId: string;
-  status: StatusProgresso;
-  moduloAtualId: string | null;
-  xpObtidoNaTrilha: number;
-}
-
-export function iniciarTrilha(trilhaId: string): Promise<Progresso> {
+export function iniciarTrilha(trilhaId: Id): Promise<Progresso> {
   return apiRequest<Progresso>(`/trilhas/${trilhaId}/iniciar`, { method: "POST" });
 }
 
-export function concluirModulo(trilhaId: string, moduloId: string): Promise<Progresso> {
+/** Conclui um módulo sem quiz. Módulos com quiz são concluídos por quizService.responderQuiz. */
+export function concluirModulo(trilhaId: Id, moduloId: Id): Promise<Progresso> {
   return apiRequest<Progresso>(`/trilhas/${trilhaId}/modulos/${moduloId}/concluir`, {
     method: "POST",
   });

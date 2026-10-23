@@ -39,7 +39,7 @@ public class Modulo {
     @JoinColumn(name = "trilha_id", nullable = false)
     private TrilhaDeEstudo trilha;
 
-    /** Posição sequencial dentro da trilha (FR-007); única por trilha. */
+    /** Posição sequencial dentro da trilha (RF07); única por trilha. */
     @Column(nullable = false)
     private Integer ordem;
 

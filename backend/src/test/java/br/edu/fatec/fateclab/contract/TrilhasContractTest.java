@@ -20,8 +20,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Contrato de GET /trilhas com filtro area/nivel: 200 autenticado (FR-006), 401 não autenticado
- * (FR-004).
+ * Contrato de GET /trilhas com filtro area/nivel: 200 autenticado (RF06), 401 não autenticado
+ * (RF04).
  */
 @SpringBootTest
 @AutoConfigureMockMvc

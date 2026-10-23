@@ -27,7 +27,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 /**
  * Testes unitários (sem contexto Spring) da regra de crédito de XP e da liberação sequencial de
- * módulos — a parte mais sensível do domínio (Princípio II/III da constituição).
+ * módulos — a parte mais sensível do domínio (docs/arquitetura.md, "Qualidade").
  */
 @ExtendWith(MockitoExtension.class)
 class ProgressoServiceTest {
@@ -66,7 +66,7 @@ class ProgressoServiceTest {
                         .build();
 
         when(progressoAlunoRepository.findByAlunoIdAndTrilhaId(1L, 10L)).thenReturn(Optional.of(progresso));
-        when(moduloRepository.findByTrilhaIdAndOrdem(10L, 2)).thenReturn(Optional.empty());
+        when(moduloRepository.findFirstByTrilhaIdAndOrdemGreaterThanOrderByOrdemAsc(10L, 1)).thenReturn(Optional.empty());
         when(progressoAlunoRepository.save(any())).thenAnswer(invocation -> invocation.getArgument(0));
 
         ProgressoAluno resultado = progressoService.concluirModulo(1L, 10L, 100L);
@@ -93,7 +93,7 @@ class ProgressoServiceTest {
                         .build();
 
         when(progressoAlunoRepository.findByAlunoIdAndTrilhaId(2L, 20L)).thenReturn(Optional.of(progresso));
-        when(moduloRepository.findByTrilhaIdAndOrdem(20L, 2)).thenReturn(Optional.of(proximoModulo));
+        when(moduloRepository.findFirstByTrilhaIdAndOrdemGreaterThanOrderByOrdemAsc(20L, 1)).thenReturn(Optional.of(proximoModulo));
         when(progressoAlunoRepository.save(any())).thenAnswer(invocation -> invocation.getArgument(0));
 
         ProgressoAluno resultado = progressoService.concluirModulo(2L, 20L, 200L);

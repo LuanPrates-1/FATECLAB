@@ -23,8 +23,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * data-model.md "ProgressoAluno": relação aluno×trilha (par único), com módulo atual, status e
- * XP obtido nessa trilha (FR-008, FR-010).
+ * docs/modelo-de-dados.md, "ProgressoAluno": relação aluno×trilha (par único), com módulo atual, status e
+ * XP obtido nessa trilha (RF08, RF10).
  */
 @Entity
 @Table(

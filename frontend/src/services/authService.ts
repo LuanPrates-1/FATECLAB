@@ -1,5 +1,5 @@
 import { apiRequest } from "./apiClient";
-import type { UsuarioLogado } from "../hooks/useSessao";
+import type { ResumoAluno, UsuarioLogado } from "./tipos";
 
 export interface SessaoResposta {
   token: string;
@@ -24,6 +24,10 @@ export function login(email: string, senha: string): Promise<SessaoResposta> {
 
 export function buscarMeuPerfil(): Promise<UsuarioLogado> {
   return apiRequest<UsuarioLogado>("/alunos/me");
+}
+
+export function buscarResumo(): Promise<ResumoAluno> {
+  return apiRequest<ResumoAluno>("/alunos/me/resumo");
 }
 
 export function atualizarApelido(apelido: string): Promise<UsuarioLogado> {

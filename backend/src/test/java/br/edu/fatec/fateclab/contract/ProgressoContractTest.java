@@ -21,7 +21,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
-/** Contrato de GET /alunos/me/progresso (FR-008, FR-010). */
+/** Contrato de GET /alunos/me/progresso (RF08, RF10). */
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")

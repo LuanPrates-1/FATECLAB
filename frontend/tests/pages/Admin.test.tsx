@@ -1,4 +1,4 @@
-import { describe, expect, it, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
@@ -7,64 +7,80 @@ import { RotaAdmin } from "../../src/routes/RotaAdmin";
 import { SessaoProvider } from "../../src/hooks/useSessao";
 import * as trilhaService from "../../src/services/trilhaService";
 import * as adminService from "../../src/services/adminService";
+import { ADMIN, ALUNO, renderizar } from "../utils";
 
 describe("Admin", () => {
   beforeEach(() => {
     vi.restoreAllMocks();
     vi.spyOn(trilhaService, "listarTrilhas").mockResolvedValue([
-      { id: "1", titulo: "Trilha Existente", area: "Programação", nivel: "INICIANTE" },
+      { id: 1, titulo: "Trilha Existente", area: "Programação", nivel: "INICIANTE", totalModulos: 2 },
     ]);
   });
 
-  it("cria uma nova trilha com ao menos um módulo (US4 cenário 1)", async () => {
-    const criarMock = vi.spyOn(adminService, "criarTrilha").mockResolvedValue({
-      id: "2",
+  it("cria uma trilha com módulo, lição e questão", async () => {
+    const criar = vi.spyOn(adminService, "criarTrilha").mockResolvedValue({
+      id: 2,
       titulo: "Nova Trilha",
       area: "Back-end",
       nivel: "INICIANTE",
       modulos: [],
     });
-
-    render(<Admin />);
+    renderizar(<Admin />, { usuario: ADMIN });
     await screen.findByText("Trilha Existente");
 
-    await userEvent.type(screen.getByLabelText(/título$/i), "Nova Trilha");
+    await userEvent.click(screen.getByRole("button", { name: /nova trilha/i }));
+    await userEvent.type(screen.getByLabelText(/^título$/i), "Nova Trilha");
     await userEvent.type(screen.getByLabelText(/^área$/i), "Back-end");
     await userEvent.type(screen.getByLabelText(/título do módulo 1/i), "Introdução");
+    await userEvent.type(screen.getByLabelText(/^lição$/i), "Texto da lição");
+    await userEvent.type(screen.getByLabelText(/^enunciado$/i), "Quanto é 1 + 1?");
+    const textos = screen.getAllByLabelText(/texto da alternativa/i);
+    await userEvent.type(textos[0], "2");
+    await userEvent.type(textos[1], "3");
+    await userEvent.type(textos[2], "4");
+    await userEvent.type(textos[3], "5");
     await userEvent.click(screen.getByRole("button", { name: /criar trilha/i }));
 
-    await waitFor(() => {
-      expect(criarMock).toHaveBeenCalledWith(
+    await waitFor(() =>
+      expect(criar).toHaveBeenCalledWith(
         expect.objectContaining({
           titulo: "Nova Trilha",
           area: "Back-end",
-          modulos: [expect.objectContaining({ titulo: "Introdução" })],
+          modulos: [
+            expect.objectContaining({
+              titulo: "Introdução",
+              conteudo: "Texto da lição",
+              questoes: [
+                expect.objectContaining({
+                  enunciado: "Quanto é 1 + 1?",
+                  alternativas: expect.arrayContaining([{ texto: "2", correta: true }]),
+                }),
+              ],
+            }),
+          ],
         }),
-      );
-    });
+      ),
+    );
+    expect(await screen.findByRole("status")).toHaveTextContent(/criada e publicada/i);
   });
 
-  it("remove uma trilha existente (US4 cenário 3)", async () => {
-    const removerMock = vi.spyOn(adminService, "removerTrilha").mockResolvedValue(undefined);
-
-    render(<Admin />);
+  it("pede confirmação antes de remover uma trilha", async () => {
+    const remover = vi.spyOn(adminService, "removerTrilha").mockResolvedValue(undefined);
+    renderizar(<Admin />, { usuario: ADMIN });
     await screen.findByText("Trilha Existente");
 
-    await userEvent.click(screen.getByRole("button", { name: /remover/i }));
+    await userEvent.click(screen.getByRole("button", { name: /remover trilha existente/i }));
+    expect(remover).not.toHaveBeenCalled();
+    await userEvent.click(screen.getByRole("button", { name: /^remover$/i }));
 
-    await waitFor(() => expect(removerMock).toHaveBeenCalledWith("1"));
+    await waitFor(() => expect(remover).toHaveBeenCalledWith(1));
   });
 });
 
 describe("RotaAdmin", () => {
-  it("nega acesso ao painel de administração para um aluno comum (US4 cenário 4)", async () => {
-    // Sessão de aluno comum já autenticado, restaurada pelo SessaoProvider a partir do
-    // localStorage (mesma chave usada por useSessao.ts) desde o primeiro render.
+  it("nega o painel de administração a um aluno comum", async () => {
     localStorage.setItem("fateclab.token", "token-fake");
-    localStorage.setItem(
-      "fateclab.usuario",
-      JSON.stringify({ id: "1", nome: "Aluno Comum", papel: "ALUNO", apelido: "aluno", xpTotal: 0 }),
-    );
+    localStorage.setItem("fateclab.usuario", JSON.stringify(ALUNO));
 
     render(
       <MemoryRouter initialEntries={["/admin"]}>
@@ -86,7 +102,5 @@ describe("RotaAdmin", () => {
 
     expect(await screen.findByText("Lista de trilhas")).toBeInTheDocument();
     expect(screen.queryByText("Painel administrativo")).not.toBeInTheDocument();
-
-    localStorage.clear();
   });
 });

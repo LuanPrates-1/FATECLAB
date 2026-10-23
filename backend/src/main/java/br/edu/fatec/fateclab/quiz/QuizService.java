@@ -29,8 +29,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Lições e quizzes dos módulos (RF19 a RF22). O aluno precisa acertar pelo menos 70% das questões
- * para concluir o módulo; acertando todas, ganha 20% de XP de bônus. A correção é sempre feita no
+ * Lições e quizzes dos módulos (RF19 a RF22). O aluno precisa acertar cerca de 70% das questões
+ * (arredondado) para concluir o módulo; acertando todas, ganha 20% de XP de bônus. A correção é sempre feita no
  * servidor: as alternativas corretas só são reveladas depois da resposta.
  */
 @Service
@@ -57,9 +57,12 @@ public class QuizService {
         this.progressoService = progressoService;
     }
 
-    /** Menor número de acertos que aprova: 70% do total, arredondado para cima. */
+    /**
+     * Menor número de acertos que aprova: 70% do total, arredondado para o inteiro mais próximo
+     * (2 de 3, 3 de 4, 4 de 5) e nunca menos que 1.
+     */
     public static int minimoParaAprovacao(int totalQuestoes) {
-        return (int) Math.ceil(totalQuestoes * PERCENTUAL_APROVACAO);
+        return Math.max(1, (int) Math.round(totalQuestoes * PERCENTUAL_APROVACAO));
     }
 
     public static int bonusGabarito(int xpModulo) {

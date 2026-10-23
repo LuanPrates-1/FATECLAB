@@ -20,7 +20,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-/** data-model.md "TrilhaDeEstudo": conjunto de conteúdo por área/nível, com módulos ordenados. */
+/** docs/modelo-de-dados.md, "TrilhaDeEstudo": conjunto de conteúdo por área/nível, com módulos ordenados. */
 @Entity
 @Table(name = "trilha_de_estudo")
 @Getter
@@ -50,7 +50,7 @@ public class TrilhaDeEstudo {
 
     /**
      * {@code false} quando o administrador remove a trilha (edge case: alunos podem já ter
-     * progresso registrado nela) — trilhas inativas somem da listagem de alunos (FR-006) mas o
+     * progresso registrado nela) — trilhas inativas somem da listagem de alunos (RF06) mas o
      * histórico de progresso é preservado.
      */
     @Column(nullable = false)

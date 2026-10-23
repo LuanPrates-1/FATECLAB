@@ -9,6 +9,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
     boolean existsByEmail(String email);
 
-    /** Ranking geral (FR-011): XP decrescente, desempate por apelido em ordem alfabética. */
+    /** Ranking geral (RF11): XP decrescente, desempate por apelido em ordem alfabética. */
     List<Usuario> findByPapelOrderByXpTotalDescApelidoAsc(PapelUsuario papel);
 }

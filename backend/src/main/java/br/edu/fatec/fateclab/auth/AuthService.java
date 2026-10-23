@@ -19,9 +19,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
- * Cadastro (FR-001, FR-002, FR-017) e login (FR-003) de alunos. A validação do domínio
- * institucional é feita aqui, no back-end, nunca apenas no cliente (constituição, "Stack e
- * Restrições Técnicas").
+ * Cadastro (RF01, RF02, RF17) e login (RF03) de alunos. A validação do domínio
+ * institucional é feita aqui, no back-end, nunca apenas no cliente (docs/arquitetura.md,
+ * "Segurança").
  */
 @Service
 public class AuthService {
@@ -94,7 +94,7 @@ public class AuthService {
     }
 
     /**
-     * FR-018: gera um apelido padrão a partir do primeiro nome quando o aluno ainda não escolheu
+     * RF18: gera um apelido padrão a partir do primeiro nome quando o aluno ainda não escolheu
      * um; não precisa ser único entre alunos (edge case do spec).
      */
     private String gerarApelidoPadrao(String nomeCompleto) {

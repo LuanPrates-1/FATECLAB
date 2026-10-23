@@ -1,90 +1,52 @@
-# FatecLab — Tutorial para rodar
+# FatecLab
 
-Plataforma de trilhas de estudo gamificada (cadastro, trilhas, progresso com XP, ranking e painel
-admin). Este tutorial sobe tudo localmente no Windows.
+Plataforma web gamificada de trilhas de estudo para alunos da Fatec Campinas, inspirada no
+Duolingo. O aluno estuda módulos curtos, responde quizzes com correção imediata, ganha XP, sobe de
+nível, mantém uma ofensiva de dias seguidos e disputa o ranking com a turma. O administrador
+cadastra trilhas, lições e questões.
 
-## O que instalar antes
+A interface simula um aplicativo móvel: no celular ocupa a tela inteira e pode ser instalada como
+app; no computador aparece dentro de uma moldura de smartphone.
 
-| Ferramenta | Versão | Para quê |
-|---|---|---|
-| Java JDK | 17 | back-end |
-| Apache Maven | 3.9+ | compilar/rodar o back-end (o projeto **não** traz `mvnw`) |
-| Node.js + npm | 20+ | front-end |
-| Docker Desktop | qualquer recente | banco MySQL (ou instale um MySQL 8 local) |
+Trabalho de Graduação da Fatec Campinas, de Luan Prates e Raphael Langer, com orientação do Prof.
+Adriano Cilhos Doimo.
 
-Dica (PowerShell) para instalar tudo via winget:
+## Começo rápido
 
-```powershell
-winget install EclipseAdoptium.Temurin.17.JDK
-winget install Apache.Maven
-winget install OpenJS.NodeJS.LTS
-winget install Docker.DockerDesktop
+Sem back-end (modo demonstração):
+
+```bash
+cd frontend && npm install && npm run dev:demo
 ```
 
-Feche e reabra o terminal depois de instalar e confira com `java -version`, `mvn -v`, `node -v`.
+Completo (MySQL + API + front-end):
 
-## Passo 1 — Banco de dados
-
-Abra o Docker Desktop e, na pasta `Pinkie Pie`:
-
-```powershell
+```bash
 docker compose up -d
+cd backend && mvn spring-boot:run          # http://localhost:8080/api
+cd frontend && npm install && npm run dev  # http://localhost:5173
 ```
 
-Sobe um MySQL 8 em `localhost:3306` (banco `fateclab`, usuário `root`, senha `fateclab`).
+Contas de demonstração: `aluno@fatec.sp.gov.br` / `aluno1234` e `admin@fatec.sp.gov.br` / `admin1234`.
 
-> Sem Docker? Instale um MySQL 8, crie o banco `fateclab` e use usuário `root` / senha `fateclab`
-> (ou altere `backend/src/main/resources/application.yml`).
+## Tecnologias
 
-## Passo 2 — Back-end (terminal 1)
+React 18 + TypeScript + Vite (PWA) · Java 17 + Spring Boot 3.2 + Spring Security (JWT) + JPA ·
+MySQL 8 + Flyway · Vitest e JUnit.
 
-```powershell
-cd backend
-mvn spring-boot:run
-```
+## Documentação
 
-Aguarde aparecer `Started ... in X seconds`. O Flyway cria as tabelas sozinho. API em
-`http://localhost:8080/api`.
+| Documento | Conteúdo |
+|---|---|
+| [docs/especificacao.md](docs/especificacao.md) | Requisitos funcionais e não funcionais, regras de negócio, casos de uso e histórias |
+| [docs/modelo-de-dados.md](docs/modelo-de-dados.md) | Diagrama ER e dicionário de dados |
+| [docs/api.md](docs/api.md) | Endpoints da API REST com exemplos |
+| [docs/arquitetura.md](docs/arquitetura.md) | Arquitetura, tecnologias, decisões, segurança e qualidade |
+| [docs/implantacao.md](docs/implantacao.md) | Como rodar localmente e publicar de graça (Aiven, Render, Vercel) |
 
-## Passo 3 — Front-end (terminal 2)
+## Conteúdo de demonstração
 
-```powershell
-cd frontend
-npm install
-npm run dev
-```
-
-Abra **http://localhost:5173**.
-
-## Usando o sistema
-
-- **Cadastro:** só aceita e-mail do domínio `fatec.sp.gov.br` (ex.: `fulano@fatec.sp.gov.br`).
-  Para mudar o domínio, edite `fateclab.auth.dominios-institucionais` em
-  `backend/src/main/resources/application.yml`.
-- **Trilhas:** o catálogo começa vazio. Crie trilhas pelo painel admin (abaixo).
-- **Conta de administrador:** não existe autocadastro. Crie uma conta normal pelo site e depois
-  promova-a:
-
-  ```powershell
-  docker exec -it fateclab-mysql mysql -uroot -pfateclab fateclab -e "UPDATE usuario SET papel='ADMINISTRADOR' WHERE email='seu.email@fatec.sp.gov.br';"
-  ```
-
-  Saia e entre de novo no site para o painel Admin ficar disponível.
-
-## Testes (opcional)
-
-```powershell
-cd backend ; mvn test
-cd ../frontend ; npm run test
-```
-
-## Problemas comuns
-
-- **Back-end não conecta no banco:** o container ainda está iniciando — espere ~20 s após o
-  `docker compose up -d` e rode o back-end de novo. Confira com `docker ps`.
-- **Porta 3306 em uso:** você já tem um MySQL local rodando; pare-o ou use-o em vez do Docker.
-- **Porta 8080 ou 5173 em uso:** feche o programa que a usa.
-- **Front sem resposta da API / erro de CORS:** confirme que o back-end está de pé e que o front
-  está em `http://localhost:5173` (a origem liberada no CORS).
-- **Para parar tudo:** `Ctrl+C` nos dois terminais e `docker compose down` (acrescente `-v` para
-  apagar também os dados do banco).
+As 7 trilhas de exemplo (Lógica, SQL, Java OO, Requisitos e UML, Estruturas de Dados, Redes e
+Desenvolvimento Web), com 24 módulos e 72 questões, ficam em `conteudo/trilhas.mjs`. Depois de
+editar esse arquivo, rode `npm run gerar:dados` na pasta `frontend` para atualizar o SQL do banco e
+os dados do modo demonstração.

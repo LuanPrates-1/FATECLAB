@@ -1,0 +1,79 @@
+.avatar {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--superficie-alta);
+  border: 1.5px solid var(--linha-forte);
+  font-family: var(--fonte-titulo);
+  font-weight: 600;
+  color: var(--texto);
+}
+
+.avatar-destaque {
+  border-color: var(--ciano);
+  box-shadow: 0 0 0 3px rgba(77, 225, 240, 0.15);
+}
+
+/* Lições */
+.md {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  font-size: var(--t-base);
+  line-height: 1.65;
+  color: #dcdaf7;
+}
+
+.md h3 {
+  margin-top: 10px;
+  font-size: var(--t-md);
+  color: var(--texto);
+}
+
+.md ul {
+  margin: 0;
+  padding-left: 20px;
+  display: grid;
+  gap: 6px;
+}
+
+.md li::marker {
+  color: var(--ciano);
+}
+
+.md strong {
+  color: var(--texto);
+  font-weight: 600;
+}
+
+.md code {
+  padding: 1px 6px;
+  border-radius: 6px;
+  background: var(--noite-funda);
+  border: 1px solid var(--linha);
+  font-family: "JetBrains Mono", "Cascadia Code", Consolas, monospace;
+  font-size: 0.88em;
+  color: #c8f6fb;
+}
+
+.md-codigo {
+  margin: 0;
+  padding: 14px 16px;
+  border-radius: var(--raio-pequeno);
+  background: var(--noite-funda);
+  border: 1px solid var(--linha);
+  border-left: 2px solid var(--ciano-escuro);
+  overflow-x: auto;
+  font-family: "JetBrains Mono", "Cascadia Code", Consolas, monospace;
+  font-size: var(--t-sm);
+  line-height: 1.55;
+  color: #c8f6fb;
+}
+
+.md-codigo code {
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: inherit;
+}

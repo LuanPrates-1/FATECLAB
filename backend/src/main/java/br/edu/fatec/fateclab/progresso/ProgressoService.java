@@ -114,7 +114,8 @@ public class ProgressoService {
         usuarioRepository.save(aluno);
 
         var proximoModulo =
-                moduloRepository.findByTrilhaIdAndOrdem(trilhaId, moduloAtual.getOrdem() + 1);
+                moduloRepository.findFirstByTrilhaIdAndOrdemGreaterThanOrderByOrdemAsc(
+                        trilhaId, moduloAtual.getOrdem());
         if (proximoModulo.isPresent()) {
             progresso.setModuloAtual(proximoModulo.get());
         } else {

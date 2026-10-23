@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Contrato de GET /ranking: ordenação decrescente por xpTotal, desempate por apelido, e
- * destaque (ehVoce) do aluno autenticado (FR-011, FR-012).
+ * destaque (ehVoce) do aluno autenticado (RF11, RF12).
  */
 @SpringBootTest
 @AutoConfigureMockMvc

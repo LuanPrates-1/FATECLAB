@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
- * Emite e valida JWTs stateless (research.md §4). O token carrega o id e o papel do usuário como
+ * Emite e valida JWTs stateless (docs/arquitetura.md). O token carrega o id e o papel do usuário como
  * claims para que o filtro de autenticação não precise consultar o banco a cada requisição.
  */
 @Component

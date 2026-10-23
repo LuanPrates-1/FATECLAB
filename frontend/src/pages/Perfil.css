@@ -1,0 +1,205 @@
+.perfil-cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.perfil-identidade {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.perfil-identidade h1 {
+  font-size: var(--t-xl);
+  overflow-wrap: anywhere;
+}
+
+.perfil-identidade p {
+  font-size: var(--t-sm);
+  color: var(--texto-suave);
+}
+
+.perfil-nivel {
+  margin-top: 4px;
+}
+
+.perfil-editar {
+  align-self: flex-start;
+}
+
+.perfil-apelido-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.perfil-apelido-acoes {
+  display: flex;
+  gap: 8px;
+}
+
+.perfil-barra-nivel {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: var(--t-xs);
+  color: var(--texto-suave);
+}
+
+.estatisticas {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--linha);
+  border-radius: var(--raio);
+  overflow: hidden;
+}
+
+.estatistica {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-bottom: 1px solid var(--linha);
+}
+
+.estatistica:nth-child(odd) {
+  border-right: 1px solid var(--linha);
+}
+
+.estatistica:nth-last-child(-n + 2) {
+  border-bottom: 0;
+}
+
+.estatistica dt {
+  font-size: var(--t-xs);
+  color: var(--texto-suave);
+}
+
+.estatistica dd {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-family: var(--fonte-titulo);
+  font-size: var(--t-xl);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.estatistica small {
+  font-family: var(--fonte-texto);
+  font-size: var(--t-xs);
+  font-weight: 400;
+  color: var(--texto-apagado);
+}
+
+.secao-contagem {
+  font-family: var(--fonte-texto);
+  font-size: var(--t-sm);
+  font-weight: 400;
+  color: var(--texto-apagado);
+  margin-left: 6px;
+}
+
+.conquistas {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.conquista {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 10px;
+  row-gap: 2px;
+  padding: 12px;
+  border-radius: var(--raio);
+  border: 1px dashed var(--linha);
+  color: var(--texto-apagado);
+}
+
+.conquista-icone {
+  grid-row: span 2;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--noite-funda);
+}
+
+.conquista-titulo {
+  font-family: var(--fonte-titulo);
+  font-weight: 600;
+  font-size: var(--t-sm);
+}
+
+.conquista-descricao {
+  font-size: var(--t-xs);
+  line-height: 1.35;
+}
+
+.conquista.desbloqueada {
+  border-style: solid;
+  border-color: var(--linha-forte);
+  background: var(--superficie);
+  color: var(--texto-suave);
+}
+
+.conquista.desbloqueada .conquista-icone {
+  color: var(--ciano);
+  background: rgba(77, 225, 240, 0.1);
+}
+
+.conquista.desbloqueada .conquista-titulo {
+  color: var(--texto);
+}
+
+.minhas-trilhas {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.minha-trilha {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: var(--raio);
+  border: 1px solid var(--linha);
+  color: var(--texto);
+  text-decoration: none;
+  font-size: var(--t-sm);
+}
+
+.minha-trilha:hover {
+  border-color: var(--linha-forte);
+}
+
+.minha-trilha .icone-area {
+  width: 36px;
+  height: 36px;
+}
+
+.minha-trilha-texto {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.minha-trilha-texto span {
+  font-size: var(--t-xs);
+  color: var(--texto-suave);
+}

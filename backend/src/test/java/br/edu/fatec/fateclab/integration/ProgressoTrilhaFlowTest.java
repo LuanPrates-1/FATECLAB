@@ -25,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * User Story 2, fluxo completo: iniciar trilha → concluir módulos em sequência → status muda
  * para CONCLUIDA com XP total correto, tanto na trilha quanto no total acumulado do aluno
- * (research.md §8).
+ * (docs/arquitetura.md).
  */
 @SpringBootTest
 @AutoConfigureMockMvc

@@ -6,7 +6,7 @@ import reactRefresh from "eslint-plugin-react-refresh";
 
 export default [
   {
-    ignores: ["dist/**", "node_modules/**", "coverage/**"],
+    ignores: ["dist/**", "dist-demo/**", "node_modules/**", "coverage/**", "public/sw.js", "scripts/**"],
   },
   js.configs.recommended,
   {
@@ -37,6 +37,8 @@ export default [
     rules: {
       ...tsPlugin.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
+      // O TypeScript já verifica identificadores indefinidos (recomendação do typescript-eslint).
+      "no-undef": "off",
       "react-refresh/only-export-components": [
         "warn",
         { allowConstantExport: true },

@@ -1,0 +1,154 @@
+.pagina-ranking {
+  position: relative;
+}
+
+.ranking-subtitulo {
+  margin-top: 6px;
+  font-size: var(--t-sm);
+  color: var(--texto-suave);
+}
+
+.podio {
+  list-style: none;
+  margin: 0;
+  padding: 8px 0 0;
+  display: grid;
+  grid-template-columns: 1fr 1.15fr 1fr;
+  align-items: end;
+  gap: 8px;
+}
+
+.podio-lugar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.podio-nome {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
+  font-size: var(--t-sm);
+}
+
+.podio-xp {
+  font-size: var(--t-sm);
+}
+
+.podio-base {
+  width: 100%;
+  display: grid;
+  place-items: start center;
+  padding-top: 8px;
+  margin-top: 4px;
+  border: 1px solid var(--linha);
+  border-bottom: 0;
+  border-radius: 12px 12px 0 0;
+  background: linear-gradient(var(--superficie-alta), var(--noite));
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
+  font-size: var(--t-xl);
+  color: var(--texto-suave);
+}
+
+.lugar-1 .podio-base {
+  height: 96px;
+  border-color: rgba(255, 200, 87, 0.5);
+  color: var(--ambar);
+}
+
+.lugar-2 .podio-base {
+  height: 72px;
+}
+
+.lugar-3 .podio-base {
+  height: 56px;
+}
+
+.podio-lugar.eh-voce .podio-nome {
+  color: var(--ciano);
+}
+
+.lista-ranking {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.linha-ranking {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 8px;
+  border-radius: var(--raio-pequeno);
+}
+
+.lista-ranking .linha-ranking + .linha-ranking {
+  border-top: 1px solid var(--linha);
+}
+
+.linha-ranking.eh-voce {
+  background: rgba(77, 225, 240, 0.07);
+  outline: 1px solid var(--ciano-escuro);
+}
+
+.ranking-posicao {
+  width: 24px;
+  text-align: center;
+  font-family: var(--fonte-titulo);
+  font-weight: 600;
+  color: var(--texto-apagado);
+  font-variant-numeric: tabular-nums;
+}
+
+.ranking-nome {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 8px;
+  font-weight: 500;
+}
+
+.ranking-voce-rotulo {
+  font-size: var(--t-xs);
+  color: var(--ciano);
+}
+
+.ranking-nivel {
+  width: 100%;
+  font-size: var(--t-xs);
+  color: var(--texto-apagado);
+  font-weight: 400;
+}
+
+.ranking-ofensiva {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-size: var(--t-sm);
+}
+
+.ranking-xp {
+  min-width: 64px;
+  text-align: right;
+  font-size: var(--t-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Sua posição fixa no rodapé quando você está fora do topo da lista. */
+.ranking-voce {
+  position: sticky;
+  bottom: 0;
+  margin: 0 -20px -32px;
+  padding: 10px 12px;
+  background: var(--noite);
+  border-top: 1px solid var(--linha);
+}
