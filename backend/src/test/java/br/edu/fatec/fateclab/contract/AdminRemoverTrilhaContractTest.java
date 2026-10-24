@@ -14,6 +14,7 @@ import br.edu.fatec.fateclab.trilha.NivelTrilha;
 import br.edu.fatec.fateclab.trilha.TrilhaDeEstudo;
 import br.edu.fatec.fateclab.trilha.TrilhaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,9 +88,11 @@ class AdminRemoverTrilhaContractTest {
                         .titulo("Trilha Removível")
                         .area("Programação")
                         .nivel(NivelTrilha.INICIANTE)
-                        .modulos(List.of(Modulo.builder().ordem(1).titulo("M1").xpConcedido(10).build()))
+                        .modulos(new ArrayList<>(List.of(Modulo.builder().ordem(1).titulo("M1").xpConcedido(10).build())))
                         .build();
-        trilha.getModulos().forEach(m -> m.setTrilha(trilha));
+        for (var m : trilha.getModulos()) {
+            m.setTrilha(trilha);
+        }
         return trilhaRepository.save(trilha);
     }
 

@@ -10,6 +10,7 @@ import br.edu.fatec.fateclab.trilha.TrilhaDeEstudo;
 import br.edu.fatec.fateclab.trilha.TrilhaRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,9 +42,11 @@ class IniciarTrilhaContractTest {
                         .area("Programação")
                         .nivel(NivelTrilha.INICIANTE)
                         .modulos(
-                                List.of(Modulo.builder().ordem(1).titulo("Variáveis").xpConcedido(10).build()))
+                                new ArrayList<>(List.of(Modulo.builder().ordem(1).titulo("Variáveis").xpConcedido(10).build())))
                         .build();
-        trilha.getModulos().forEach(modulo -> modulo.setTrilha(trilha));
+        for (var modulo : trilha.getModulos()) {
+            modulo.setTrilha(trilha);
+        }
         trilha = trilhaRepository.save(trilha);
 
         String token = cadastrarAlunoERetornarToken("joao.matos@fatec.sp.gov.br");

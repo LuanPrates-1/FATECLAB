@@ -52,7 +52,9 @@ class PersistenciaProgressoTest {
                                         Modulo.builder().ordem(1).titulo("Variáveis").xpConcedido(10).build(),
                                         Modulo.builder().ordem(2).titulo("Laços").xpConcedido(15).build()))
                         .build();
-        trilha.getModulos().forEach(modulo -> modulo.setTrilha(trilha));
+        for (var modulo : trilha.getModulos()) {
+            modulo.setTrilha(trilha);
+        }
         trilha = trilhaRepository.save(trilha);
 
         String email = "olivia.rocha@fatec.sp.gov.br";
