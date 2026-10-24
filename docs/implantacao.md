@@ -102,6 +102,11 @@ pelo painel alguns minutos antes da apresentação.
 | `DB_SENHA` | senha do Aiven |
 | `FATECLAB_JWT_SECRET` | texto aleatório com 32 caracteres ou mais |
 | `FATECLAB_CORS_ORIGENS` | endereço do front-end, ex.: `https://fateclab.vercel.app` |
+| `FATECLAB_ADMIN_SENHA` | nova senha do `admin@fatec.sp.gov.br`, com 12 caracteres ou mais (a senha `admin1234` é pública) |
+| `FATECLAB_DOMINIOS` | domínios de e-mail aceitos no cadastro, ex.: `fatec.sp.gov.br,gmail.com,outlook.com` |
+
+No site hospedado, os botões "Entrar como aluno/administrador" da tela de login ficam ocultos; eles
+só aparecem no modo demonstração.
 
 4. Depois do deploy, teste `https://SEU-SERVICO.onrender.com/api/saude`. A resposta deve ser
    `{"status":"ok"}`.

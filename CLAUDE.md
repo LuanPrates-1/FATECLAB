@@ -20,11 +20,11 @@ aparece dentro de uma moldura de celular.
 ## Estado atual
 
 - 8 trilhas, 28 módulos, 84 questões (a mais recente é Cibersegurança).
-- Front-end: 32 testes passando, lint limpo.
-- Back-end: 42 testes passando (`mvn test`, Maven 3.9.9, Java 17). O `spotless:check` ainda acusa
+- Front-end: 33 testes passando, lint limpo.
+- Back-end: 45 testes passando (`mvn test`, Maven 3.9.9, Java 17). O `spotless:check` ainda acusa
   diferenças de formatação em arquivos antigos (não quebra o build).
 - TG: trechos destacados em amarelo dependem dos autores (teste de usabilidade com SUS, resultado do
-  `mvn test` — já disponível: 42 de 42 —, declaração de uso de IA conforme orientação do professor).
+  `mvn test` — já disponível: 45 de 45 —, declaração de uso de IA conforme orientação do professor).
 
 ## Decisões que devem ser mantidas
 

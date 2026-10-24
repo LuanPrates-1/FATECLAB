@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ApiError, acordarServidor } from "../services/apiClient";
+import { ApiError, MODO_DEMO, acordarServidor } from "../services/apiClient";
 import { login as loginRequest } from "../services/authService";
 import { useSessao } from "../hooks/useSessao";
 import { MarcaFatecLab } from "../components/Logo";
@@ -95,22 +95,25 @@ export function Login() {
         Ainda não tem conta? <Link to="/cadastro">Criar conta</Link>
       </p>
 
-      <details className="auth-demo">
-        <summary>Testar com uma conta de demonstração</summary>
-        <div className="auth-demo-botoes">
-          {CONTAS_DEMO.map((conta) => (
-            <button
-              key={conta.email}
-              type="button"
-              className="botao botao-pequeno"
-              disabled={enviando}
-              onClick={() => entrar(conta.email, conta.senha)}
-            >
-              Entrar como {conta.rotulo.toLowerCase()}
-            </button>
-          ))}
-        </div>
-      </details>
+      {/* Os atalhos expõem senhas públicas; no site hospedado o admin tem outra senha. */}
+      {MODO_DEMO && (
+        <details className="auth-demo">
+          <summary>Testar com uma conta de demonstração</summary>
+          <div className="auth-demo-botoes">
+            {CONTAS_DEMO.map((conta) => (
+              <button
+                key={conta.email}
+                type="button"
+                className="botao botao-pequeno"
+                disabled={enviando}
+                onClick={() => entrar(conta.email, conta.senha)}
+              >
+                Entrar como {conta.rotulo.toLowerCase()}
+              </button>
+            ))}
+          </div>
+        </details>
+      )}
     </div>
   );
 }

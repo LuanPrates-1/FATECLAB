@@ -18,3 +18,8 @@ services:
         generateValue: true
       - key: FATECLAB_CORS_ORIGENS
         value: https://*.vercel.app
+      # Troca a senha pública (admin1234) do administrador de demonstração; mínimo de 12 caracteres.
+      - key: FATECLAB_ADMIN_SENHA
+        sync: false
+      - key: FATECLAB_DOMINIOS
+        value: fatec.sp.gov.br,gmail.com,outlook.com,hotmail.com,yahoo.com,yahoo.com.br
