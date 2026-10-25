@@ -41,4 +41,7 @@ aparece dentro de uma moldura de celular.
 
 ## Próximo assunto
 
-Discutir e aprofundar as seções de segurança (no sistema e no TG).
+1. **Hospedagem em andamento** (Aiven + Render + Vercel): continuar pela etapa 1 de
+   `HOSPEDAGEM-PASSO-A-PASSO.md`. O código já está pronto e no GitHub; falta o autor criar as contas.
+2. Recursos sociais (seguir/seguidores, perfil público, ranking entre amigos; chat como trabalho futuro).
+3. Discutir e aprofundar as seções de segurança (no sistema e no TG).
