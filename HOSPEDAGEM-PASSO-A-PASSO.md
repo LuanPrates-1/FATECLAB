@@ -30,6 +30,18 @@ que você entra como `admin@fatec.sp.gov.br` no site hospedado.
 
 ## Etapa 1: banco MySQL no Aiven
 
+**Já feito (02/11/2026):** serviço `fateclab-db` criado no plano **Free** (`Free-1-1gb`, North
+America, projeto `luanpratesk2-25d1`). URL de conexão:
+
+```
+jdbc:mysql://fateclab-db-luanpratesk2-25d1.c.aivencloud.com:27266/defaultdb?sslMode=REQUIRED
+```
+
+O plano Free desliga sozinho quando fica sem uso; na véspera da apresentação, conferir se está ligado.
+O serviço antigo `fateclab1` (plano Developer-1, pago com créditos do *trial*, que acabam por volta de
+24/11/2026) deve ser apagado depois que o site estiver funcionando com o `fateclab-db`.
+Os itens abaixo ficam só como referência.
+
 1. Abra https://console.aiven.io/signup e crie a conta (entrar com o GitHub é o mais simples).
 2. Se pedir organização ou projeto, use qualquer nome, como `fateclab`.
 3. Clique em **Create service** e escolha **MySQL**.

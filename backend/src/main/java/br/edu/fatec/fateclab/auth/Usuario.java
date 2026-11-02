@@ -15,6 +15,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 /**
  * Base de autenticação para Aluno e Administrador (docs/modelo-de-dados.md, "Usuario"). O campo {@code
@@ -45,6 +47,7 @@ public class Usuario {
     private String senhaHash;
 
     @Enumerated(EnumType.STRING)
+    @JdbcTypeCode(SqlTypes.VARCHAR)
     @Column(nullable = false, length = 20)
     private PapelUsuario papel;
 

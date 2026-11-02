@@ -19,6 +19,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 /** docs/modelo-de-dados.md, "TrilhaDeEstudo": conjunto de conteúdo por área/nível, com módulos ordenados. */
 @Entity
@@ -41,6 +43,7 @@ public class TrilhaDeEstudo {
     private String area;
 
     @Enumerated(EnumType.STRING)
+    @JdbcTypeCode(SqlTypes.VARCHAR)
     @Column(nullable = false, length = 20)
     private NivelTrilha nivel;
 

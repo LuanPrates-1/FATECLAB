@@ -21,6 +21,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 /**
  * docs/modelo-de-dados.md, "ProgressoAluno": relação aluno×trilha (par único), com módulo atual, status e
@@ -50,6 +52,7 @@ public class ProgressoAluno {
     private TrilhaDeEstudo trilha;
 
     @Enumerated(EnumType.STRING)
+    @JdbcTypeCode(SqlTypes.VARCHAR)
     @Column(nullable = false, length = 20)
     private StatusProgresso status;
 
